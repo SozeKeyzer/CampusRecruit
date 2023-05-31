@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+
+	<!-- Global stylesheets -->
+	<link href="assets/fonts/inter/inter.css" rel="stylesheet" type="text/css">
+	<link href="assets/icons/phosphor/styles.min.css" rel="stylesheet" type="text/css">
+	<link href="html/layout_1/full/assets/css/ltr/all.min.css" id="stylesheet" rel="stylesheet" type="text/css">
+	<!-- /global stylesheets -->
+
+	<!-- Core JS files -->
+	<script src="assets/demo/demo_configurator.js"></script>
+	<script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script src="assets/js/vendor/visualization/echarts/echarts.min.js"></script>
+	<script src="assets/js/vendor/ui/fullcalendar/main.min.js"></script>
+
+	<script src="html/layout_1/full/assets/js/app.js"></script>
+	<script src="assets/demo/pages/user_pages_profile.js"></script>
+	<script src="assets/demo/charts/echarts/bars/tornado_negative_stack.js"></script>
+	<script src="assets/demo/charts/pages/profile/balance_stats.js"></script>
+	<script src="assets/demo/charts/pages/profile/available_hours.js"></script>
+	<!-- /theme JS files -->
+
+</head>
+
+<body>
+
+	<!-- Main navbar -->
+	<div class="navbar navbar-expand-xl navbar-static shadow">
+		<div class="container-fluid">
+			<div class="navbar-brand flex-1">
+				<!-- <a href="index.html" class="d-inline-flex align-items-center">
+					<img src="assets/images/logo_icon.svg" alt="">
+					<img src="assets/images/logo_text_dark.svg" class="d-none d-sm-inline-block h-16px invert-dark ms-3" alt="">
+				</a> -->
+				<a href="/studentDashboard" class="d-inline-flex align-items-center">
+					<h1 class="page-title mb-0">Campus Recruit</h1>
+				</a>
+			</div>
+
+			<div class="d-flex w-100 w-xl-auto overflow-auto overflow-xl-visible scrollbar-hidden border-top border-top-xl-0 order-1 order-xl-0 pt-2 pt-xl-0 mt-2 mt-xl-0">
+				<ul class="nav gap-1 justify-content-center flex-nowrap flex-xl-wrap mx-auto">
+					<li class="nav-item">
+						<a href="/studentDashboard" class="navbar-nav-link rounded">
+							<i class="ph-house me-2"></i>
+							Home
+						</a>
+					</li>
+
+					<li class="nav-item nav-item-dropdown">
+						<a href="/studentJobPosting" class="navbar-nav-link rounded" >
+							<i class="ph-rows me-2"></i>
+							Job Posting
+						</a>
+					</li>
+
+					<li class="nav-item nav-item-dropdown-xl dropdown">
+						<a href="/studentprofile" class="navbar-nav-link rounded active">
+							<i class="ph-note-blank me-2"></i>
+							Profile Setting
+						</a>
+					</li>
+
+				</ul>
+			</div>
+
+			<ul class="nav gap-1 flex-xl-1 justify-content-end order-0 order-xl-1">
+
+
+				<li class="nav-item nav-item-dropdown-xl dropdown">
+					<a href="#" class="navbar-nav-link align-items-center rounded-pill p-1" data-bs-toggle="dropdown">
+						<div class="status-indicator-container">
+							<img src="assets/images/demo/userdemo.webp" class="w-32px h-32px rounded-pill" alt="">
+							<span class="status-indicator bg-success"></span>
+						</div>
+						<span class="d-none d-md-inline-block mx-md-2">Ujjwal</span>
+					</a>
+
+					<div class="dropdown-menu dropdown-menu-end">
+						<a href="#" class="dropdown-item">
+							<i class="ph-user-circle me-2"></i>
+							My profile
+						</a>
+						<a href="#" class="dropdown-item">
+							<i class="ph-envelope-open me-2"></i>
+							My inbox
+							<span class="badge bg-primary rounded-pill ms-auto">26</span>
+						</a>
+						<div class="dropdown-divider"></div>
+						<a href="#" class="dropdown-item">
+							<i class="ph-sign-out me-2"></i>
+							Logout
+						</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /main navbar -->
+
+
+	<!-- Page content -->
+	<div class="page-content">
+
+		
+
+
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Inner content -->
+			<div class="content-inner">
+
+
+				<!-- Cover area -->
+				<div class="profile-cover">
+					<div class="profile-cover-img" style="background-image: url(assets/images/demo/coverdemo.jpg)"></div>
+					<div class="d-flex align-items-center text-center text-lg-start flex-column flex-lg-row position-absolute start-0 end-0 bottom-0 mx-3 mb-3">
+						<div class="me-lg-3 mb-2 mb-lg-0">
+							<a href="#">
+								<img src="assets/images/demo/userdemo.webp" class="img-thumbnail rounded-circle shadow" width="100" height="100" alt="">
+							</a>
+						</div>
+
+						<div class="profile-cover-text text-white">
+				    		<h1 class="mb-0">Ujjwal Raturi</h1>
+				    		<span class="d-block">Student</span>
+						</div>
+
+						<div class="ms-lg-auto mt-2 mt-lg-0">
+							<div class="d-inline-flex">
+								<a href="#" class="btn btn-light border-transparent shadow">
+									<i class="ph-image me-2"></i>
+									Cover image
+								</a>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /cover area -->
+
+
+
+				<!-- Content area -->
+				<div class="content">
+
+					<!-- Inner container -->
+					<!-- Profile info -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Profile information</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">First Name</label>
+                                            <input type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Last name</label>
+                                            <input type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Student ID</label>
+                                            <input type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Email</label>
+                                            <input type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Contact</label>
+                                            <input type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Course</label>
+                                            <input type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label class="form-label">Branch</label>
+                                            <input type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Current Year</label>
+                                            <input type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Current Semester</label>
+                                            <input type="text" value="" class="form-control">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">LinkedIn</label>
+                                            <input type="text" value="" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Upload resume</label>
+                                            <input type="file" class="form-control">
+                                            <div class="form-text text-muted">Accepted formats: pdf, doc. Max file size 2Mb</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /profile info -->
+
+
+                    <!-- Account settings -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Account settings</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <form action="#">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Username</label>
+                                            <input type="text" value="Vicky" readonly class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Current password</label>
+                                            <input type="password" value="password" readonly class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">New password</label>
+                                            <input type="password" placeholder="Enter new password" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Repeat password</label>
+                                            <input type="password" placeholder="Repeat new password" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                               
+
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /account settings -->
+
+					<!-- /inner container -->
+
+				</div>
+				<!-- /content area -->
+
+
+				<!-- Footer -->
+				<div class="navbar navbar-sm navbar-footer border-top">
+					<div class="container-fluid justify-content-center">
+						<span>Campus Recruit &copy; 2023</span>
+
+					</div>
+				</div>
+				<!-- /footer -->
+
+			</div>
+			<!-- /inner content -->
+
+		</div>
+		<!-- /main content -->
+
+	</div>
+	<!-- /page content -->
+
+
+
+
+	<!-- Demo config -->
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="demo_config">
+		<div class="position-absolute top-50 end-100 visible">
+			<button type="button" class="btn btn-primary btn-icon translate-middle-y rounded-end-0" data-bs-toggle="offcanvas" data-bs-target="#demo_config">
+				<i class="ph-gear"></i>
+			</button>
+		</div>
+
+		<div class="offcanvas-header border-bottom py-0">
+			<h5 class="offcanvas-title py-3">Theme configuration</h5>
+			<button type="button" class="btn btn-light btn-sm btn-icon border-transparent rounded-pill" data-bs-dismiss="offcanvas">
+				<i class="ph-x"></i>
+			</button>
+		</div>
+
+		<div class="offcanvas-body">
+			<div class="fw-semibold mb-2">Color mode</div>
+			<div class="list-group mb-3">
+				<label class="list-group-item list-group-item-action form-check border-width-1 rounded mb-2">
+					<div class="d-flex flex-fill my-1">
+						<div class="form-check-label d-flex me-2">
+							<i class="ph-sun ph-lg me-3"></i>
+							<div>
+								<span class="fw-bold">Light theme</span>
+								<div class="fs-sm text-muted">Set light theme or reset to default</div>
+							</div>
+						</div>
+						<input type="radio" class="form-check-input cursor-pointer ms-auto" name="main-theme" value="light" checked>
+					</div>
+				</label>
+
+				<label class="list-group-item list-group-item-action form-check border-width-1 rounded mb-2">
+					<div class="d-flex flex-fill my-1">
+						<div class="form-check-label d-flex me-2">
+							<i class="ph-moon ph-lg me-3"></i>
+							<div>
+								<span class="fw-bold">Dark theme</span>
+								<div class="fs-sm text-muted">Switch to dark theme</div>
+							</div>
+						</div>
+						<input type="radio" class="form-check-input cursor-pointer ms-auto" name="main-theme" value="dark">
+					</div>
+				</label>
+
+				<label class="list-group-item list-group-item-action form-check border-width-1 rounded mb-0">
+					<div class="d-flex flex-fill my-1">
+						<div class="form-check-label d-flex me-2">
+							<i class="ph-translate ph-lg me-3"></i>
+							<div>
+								<span class="fw-bold">Auto theme</span>
+								<div class="fs-sm text-muted">Set theme based on system mode</div>
+							</div>
+						</div>
+						<input type="radio" class="form-check-input cursor-pointer ms-auto" name="main-theme" value="auto">
+					</div>
+				</label>
+			</div>
+
+			
+		</div>
+
+		
+	</div>
+	<!-- /demo config -->
+
+</body>
+</html>

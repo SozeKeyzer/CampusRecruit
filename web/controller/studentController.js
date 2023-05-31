@@ -65,5 +65,14 @@ module.exports={
     },
     getStudentRegister:(req,res)=>{
         res.render('studentRegister');
+    },
+    getStudentDashboard:(req,res)=>{
+        res.render('studentDashboard');
+    },
+    getStudentJobPosting:(req,res)=>{
+        res.render('studentJobPosting');
+    },
+    getStudentProfile:(req,res)=>{
+        res.render('studentProfile');
     }
 };
