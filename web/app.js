@@ -5,6 +5,8 @@ const path = require('path');
 
 const app = express();
 
+const studentRoute=require('./routes/studentRoute');
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -14,6 +16,7 @@ app.use(session({secret: 'my secret',resave: false, saveUninitialized: false}));
 app.set("view engine","ejs");
 app.set("views","./views");
 
+app.use(studentRoute);
 app.use('/',(req,res,next)=>{
     res.render('home.ejs',{
         data:req.session.isLoggedIn
