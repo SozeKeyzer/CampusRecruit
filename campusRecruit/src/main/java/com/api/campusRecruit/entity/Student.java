@@ -1,27 +1,34 @@
 package com.api.campusRecruit.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "StudentData")
 public class Student {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     Long studentId;
-    String studentName;
-    String branch;
+    String firstName;
+    String lastName;
     String email;
+    String contact;
+    String course;
+    String branch;
+    String currentYear;
+    String currentSem;
+    String password;
 
     public Student() {
 
     }
 
-    public Student(Long studentId, String studentName, String branch) {
-        this.studentId = studentId;
-        this.studentName = studentName;
-        this.branch = branch;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getStudentId() {
@@ -32,12 +39,44 @@ public class Student {
         this.studentId = studentId;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public String getBranch() {
@@ -48,11 +87,27 @@ public class Student {
         this.branch = branch;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCurrentYear() {
+        return currentYear;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCurrentYear(String currentYear) {
+        this.currentYear = currentYear;
+    }
+
+    public String getCurrentSem() {
+        return currentSem;
+    }
+
+    public void setCurrentSem(String currentSem) {
+        this.currentSem = currentSem;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
