@@ -72,7 +72,55 @@ module.exports={
     getStudentJobPosting:(req,res)=>{
         res.render('studentJobPosting');
     },
-    getStudentProfile:(req,res)=>{
-        res.render('studentProfile');
+    getStudentProfile:async (req,res)=>{
+        const response = await axios.get(`http://localhost:9090/student/200244`);
+          const data = response.data;
+        res.render('studentProfile',{
+            data:data
+        });
+    },
+    postStudentLogin: async (req, res) => {
+        const id = req.body.username;
+        const password = req.body.password;
+        console.log(id);
+      
+        try {
+          const response = await axios.get(`http://localhost:9090/student/${id}`);
+          const data = response.data;
+          console.log(data);
+        
+
+          console.log(data.email);
+          // Render the 'studentLogin' view with the fetched data
+          res.redirect('/studentDashboard');
+        } catch (error) {
+          console.error(error);
+        }
+      },
+    postStudentRegister:(req,res)=>{
+
+        console.log('inside');
+        console.log(req.body.lastName);
+
+        const student = {
+            firstName: req.body.firstName,
+            lastName:req.body.lastName,
+            email:req.body.email,
+            contact:req.body.contact,
+            studentId:req.body.studentId,
+            course:req.body.course,
+            currentYear:req.body.currentYear,
+            currentSem:req.body.currentSem,
+            branch:req.body.branch,
+          };
+          
+          axios.post('http://localhost:9090/student', student)
+            .then(response => {
+              console.log('Student added successfully');
+            })
+            .catch(error => {
+              console.error('Error adding student:', error);
+            });
+        // res.render('studentRegister');
     }
 };

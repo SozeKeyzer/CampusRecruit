@@ -27,4 +27,11 @@ public class StudentServiceImpl implements StudentService{
         return studentDao.findByEmail(email);
     }
 
+    @Override
+    public void addStudent(Student student) {
+        System.out.println("hrere");
+        System.out.println("hrere");
+        studentDao.save(student);
+    }
+
 }

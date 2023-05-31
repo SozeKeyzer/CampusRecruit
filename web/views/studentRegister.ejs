@@ -41,40 +41,40 @@
   <div id="main" class="main-container">
     <div class="box">
       <h2>Student Register</h2>
-      <form>
+      <form action="/studentRegister" method="POST">
         <div class="row">
             <div class="input-box fn">
-                <input id="firstName" class="firstName" type="text" name="" required="">
+                <input id="firstName" class="firstName" type="text" name="firstName" required="">
                 <label>First Name</label>
             </div>
             <div class="input-box ln">
-                <input id="lastName" class="lastName" type="text" name="" required="">
+                <input id="lastName" class="lastName" type="text" name="lastName" required="">
                 <label>Last Name</label>
             </div>
         </div>
 
         <div class="row">            
             <div class="input-box si">
-                <input id="studentId" class="studentId" type="number" name="" required="">
+                <input id="studentId" class="studentId" type="number" name="studentId" required="">
                 <label>Student Id</label>
             </div>
             <div class="input-box ei">
-                <input id="emailId" class="emailId" type="email" name="" required="">
+                <input id="emailId" class="emailId" type="email" name="email" required="">
                 <label>Email Id</label>
             </div>
             <div class="input-box cn">
-                <input id="contactNumber" class="contactNumber" type="number" name="" required="">
+                <input id="contactNumber" class="contactNumber" type="number" name="contact" required="">
                 <label>Contact Number</label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-box co">
-                <input id="course" class="course" type="text" name="" required="">
+                <input id="course" class="course" type="text" name="course" required="">
                 <label>Course</label>
             </div>
             <div class="input-box br">
-                <input id="branch" class="branch" type="text" name="" required="">
+                <input id="branch" class="branch" type="text" name="branch" required="">
                 <!-- <select id="branch" class="branch" type="text" name="" required>
                   <option value="CE">CE</option>
                   <option value="CSE">CSE</option>
@@ -86,17 +86,17 @@
                 <label>Branch</label>
             </div>
             <div class="input-box yr">
-                <input id="currentYear" class="currentYear" type="number" name="" required="">
+                <input id="currentYear" class="currentYear" type="number" name="currentYear" required="">
                 <label>Current Year</label>
             </div>
             <div class="input-box sem">
-                <input id="currentSem" class="currentSem" type="number" name="" required="">
+                <input id="currentSem" class="currentSem" type="number" name="currentSem" required="">
                 <label>Current Semester</label>
             </div>
         </div>
 
         <div class="submitBox">
-            <input id="submit" class="submit" type="submit" name="" value="Submit">
+            <button id="submit" class="submit" type="submit" name="" value="Submit"></button>
         </div>
     </form>
     
