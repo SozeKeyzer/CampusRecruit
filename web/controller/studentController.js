@@ -73,29 +73,30 @@ module.exports={
         res.render('studentJobPosting');
     },
     getStudentProfile:async (req,res)=>{
-        const response = await axios.get(`http://localhost:9090/student/200244`);
-          const data = response.data;
+        // const response = await axios.get(`http://localhost:9090/student/200244`);
+        //   const data = response.data;
         res.render('studentProfile',{
-            data:data
+            // data:data
         });
     },
     postStudentLogin: async (req, res) => {
         const id = req.body.username;
         const password = req.body.password;
+          res.redirect('/studentDashboard');
         console.log(id);
       
-        try {
-          const response = await axios.get(`http://localhost:9090/student/${id}`);
-          const data = response.data;
-          console.log(data);
+        // try {
+        //   const response = await axios.get(`http://localhost:9090/student/${id}`);
+        //   const data = response.data;
+        //   console.log(data);
         
 
-          console.log(data.email);
-          // Render the 'studentLogin' view with the fetched data
-          res.redirect('/studentDashboard');
-        } catch (error) {
-          console.error(error);
-        }
+        //   console.log(data.email);
+        //   // Render the 'studentLogin' view with the fetched data
+        //   res.redirect('/studentDashboard');
+        // } catch (error) {
+        //   console.error(error);
+        // }
       },
     postStudentRegister:(req,res)=>{
 
