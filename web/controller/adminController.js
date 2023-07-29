@@ -1,5 +1,11 @@
 module.exports={
+    getAdminLogin:(req,res)=>{
+        res.render('adminLogin');
+    },
     getAdminDashboard:(req,res)=>{
         res.render('adminDashboard');
+    },
+    getAdminJobPosting:(req,res)=>{
+        res.render('adminJobPosting');
     }
 };

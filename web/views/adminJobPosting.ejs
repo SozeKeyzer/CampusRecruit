@@ -14,7 +14,6 @@
 
 	<!-- Core JS files -->
 	<script src="assets/demo/demo_configurator.js"></script>
-	<script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
@@ -27,20 +26,24 @@
 	<script src="assets/demo/charts/pages/dashboard_6/progress_sortable.js"></script>
 	<script src="assets/demo/charts/pages/dashboard_6/bars_grouped.js"></script>
 	<script src="assets/demo/charts/pages/dashboard_6/line_label_marks.js"></script>
-    <script src="assets/demo/pages/datatables_basic.js"></script>
-    <script src="assets/js/vendor/tables/datatables/datatables.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/jquery/jquery.min.js"></script>
+	<!-- /theme JS files -->
 
+
+    <link href="assets/fonts/inter/inter.css" rel="stylesheet" type="text/css">
+	<link href="assets/icons/phosphor/styles.min.css" rel="stylesheet" type="text/css">
+	<!-- /global stylesheets -->
+
+	<!-- Core JS files -->
+	<script src="assets/demo/demo_configurator.js"></script>
+	<script src="assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
 	<script src="assets/js/jquery/jquery.min.js"></script>
 	<script src="assets/js/vendor/tables/datatables/datatables.min.js"></script>
 
-	<script src="assets/js/app.js"></script>
+	<script src="html/layout_1/full/assets/js/app.js"></script>
 	<script src="assets/demo/pages/datatables_basic.js"></script>
-	<!-- /theme JS files -->
-
 </head>
 
 <body>
@@ -61,14 +64,14 @@
 			<div class="d-flex w-100 w-xl-auto overflow-auto overflow-xl-visible scrollbar-hidden border-top border-top-xl-0 order-1 order-xl-0 pt-2 pt-xl-0 mt-2 mt-xl-0">
 				<ul class="nav gap-1 justify-content-center flex-nowrap flex-xl-wrap mx-auto">
 					<li class="nav-item">
-						<a href="/adminDashboard" class="navbar-nav-link rounded active">
+						<a href="/adminDashboard" class="navbar-nav-link rounded">
 							<i class="ph-house me-2"></i>
 							Home
 						</a>
 					</li>
 
 					<li class="nav-item nav-item-dropdown">
-						<a href="/adminJobPosting" class="navbar-nav-link rounded">
+						<a href="/adminJobPosting" class="navbar-nav-link rounded active" >
 							<i class="ph-rows me-2"></i>
 							Job Posting
 						</a>
@@ -107,7 +110,7 @@
 							<span class="badge bg-primary rounded-pill ms-auto">26</span>
 						</a>
 						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
+						<a href="/adminLogin" class="dropdown-item">
 							<i class="ph-sign-out me-2"></i>
 							Logout
 						</a>
@@ -133,7 +136,7 @@
 					<div class="page-header-content container d-lg-flex">
 						<div class="d-flex">
 							<h4 class="page-title mb-0">
-								Home - <span class="fw-normal">Dashboard</span>
+								Admin - <span class="fw-normal">Job Posting</span>
 							</h4>
 						</div>
 
@@ -145,145 +148,83 @@
 
 				<!-- Content area -->
 				<div class="content container pt-0">
-
-					<!-- Blocks with chart -->
-					
-					<!-- /blocks with chart -->
-
-					<!-- Latest orders -->
-					<div class="card">
+                    <div class="card">
 						<div class="card-header">
-							<h5 class="mb-0">Unvalidated Profile</h5>
+							<h5 class="mb-0">Basic datatable</h5>
 						</div>
 
-						<div class="card-body">
-							These profiles need to be validated.
-						</div>
-
-						<table class="table datatable-pagination">
+						<table class="table datatable-basic">
 							<thead>
 								<tr>
-									<th>First Name</th>
-									<th>Last Name</th>
-									<th>Student Id</th>
-									<th>Email</th>
-									<th>Contact</th>
-									<th class="text-center">Actions</th>
+									<th>Company</th>
+									<th>Eligiblity</th>
+									<th>Job-Type</th>
+									<th>Last Date</th>
+									<th>Skills</th>
+									<th>Status</th>
+									
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>Mohit</td>
-									<td>Sharma</a></td>
-									<td><a href="#">200244</a> </td>
-									<td>mohit@gmail.com</td>
-                                    <td>4626588770</td>
-									<td class="text-center">
-										<div class="d-inline-flex">
-											<div class="dropdown">
-												<a href="#" class="text-body" data-bs-toggle="dropdown">
-													<i class="ph-list"></i>
-												</a>
-
-												<div class="dropdown-menu dropdown-menu-end">
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-pdf me-2"></i>
-														Validate Profile
-													</a>
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-xls me-2"></i>
-														Show full profile
-													</a>
-												</div>
-											</div>
-										</div>
-									</td>
-								</tr> 
-                                <tr>
-									<td>Ujjwal</td>
-									<td>Raturi</a></td>
-									<td><a href="#">200262</a></td>
-									<td>ujjwal@gmail.com</td>
-                                    <td>3565167785</td>
-									<td class="text-center">
-										<div class="d-inline-flex">
-											<div class="dropdown">
-												<a href="#" class="text-body" data-bs-toggle="dropdown">
-													<i class="ph-list"></i>
-												</a>
-
-												<div class="dropdown-menu dropdown-menu-end">
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-pdf me-2"></i>
-														Validate Profile
-													</a>
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-xls me-2"></i>
-														Show full profile
-													</a>
-												</div>
-											</div>
-										</div>
-									</td>
-								</tr> 
-                                <tr>
-									<td>Gaurav</td>
-									<td>Pharasi</a></td>
-									<td><a href="#">200229</a></td>
-									<td>gaurav@gmail.com</td>
-                                    <td>812534370</td>
-									<td class="text-center">
-										<div class="d-inline-flex">
-											<div class="dropdown">
-												<a href="#" class="text-body" data-bs-toggle="dropdown">
-													<i class="ph-list"></i>
-												</a>
-
-												<div class="dropdown-menu dropdown-menu-end">
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-pdf me-2"></i>
-														Validate Profile
-													</a>
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-xls me-2"></i>
-														Show full profile
-													</a>
-												</div>
-											</div>
-										</div>
-									</td>
+									<td>Amazon</td>
+									<td>7 CGPA</td>
+									<td>Web Development</td>
+									<td>22 Jun 2023</td>
+									<td>Java</td>
+									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
+									
 								</tr>
-                                <tr>
-									<td>Raj</td>
-									<td>Seraw</a></td>
-									<td><a href="#">200248</a></td>
-									<td>raj@gmail.com</td>
-                                    <td>9326513470</td>
-									<td class="text-center">
-										<div class="d-inline-flex">
-											<div class="dropdown">
-												<a href="#" class="text-body" data-bs-toggle="dropdown">
-													<i class="ph-list"></i>
-												</a>
-
-												<div class="dropdown-menu dropdown-menu-end">
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-pdf me-2"></i>
-														Validate Profile
-													</a>
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-xls me-2"></i>
-														Show full profile
-													</a>
-												</div>
-											</div>
-										</div>
-									</td>
+								<tr>
+									<td>Google</td>
+									<td>7 CGPA</td>
+									<td>Software Development</td>
+									<td>3 Oct 2023</td>
+									<td>Node</td>
+									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
+									
 								</tr>
+								<tr>
+									<td>TCS</td>
+									<td>6 CGPA</td>
+									<td>AI Engineer</td>
+									<td>19 Apr 2023</td>
+									<td>DSA</td>
+									<td><span class="badge bg-danger bg-opacity-10 text-danger">Suspended</span></td>
+									
+								</tr>
+								<tr>
+									<td>Adobe</td>
+									<td>9 CGPA</td>
+									<td>Software Development</td>
+									<td>13 Dec 2023</td>
+									<td>DSA</td>
+									<td><span class="badge bg-info bg-opacity-10 text-info">Pending</span></td>
+									
+								</tr>
+								<tr>
+									<td>Infosys</td>
+									<td>6 CGPA</td>
+									<td>Web Development</td>
+									<td>30 Dec 2023</td>
+									<td>React</td>
+									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
+									
+								</tr>
+								<tr>
+									<td>Netflix</td>
+									<td>8 CGPA</td>
+									<td>Information Security Analyst</td>
+									<td>17 Oct 1987</td>
+									<td>BlockChain</td>
+									<td><span class="badge bg-info bg-opacity-10 text-info">Pending</span></td>
+									
+								</tr>
+								
 							</tbody>
 						</table>
 					</div>
-					<!-- /latest orders -->
+					
 				</div>
 				<!-- /content area -->
 
