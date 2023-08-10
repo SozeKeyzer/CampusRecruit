@@ -10,4 +10,5 @@ public interface StudentService {
     public Student getStudentByEmail(String email);
 
     public void addStudent(Student student);
+    public void updateStudent(Student student);
 }

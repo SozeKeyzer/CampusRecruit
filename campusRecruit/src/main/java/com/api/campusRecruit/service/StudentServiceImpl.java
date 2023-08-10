@@ -29,9 +29,11 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public void addStudent(Student student) {
-        System.out.println("hrere");
-        System.out.println("hrere");
         studentDao.save(student);
     }
 
+    @Override
+    public void updateStudent(Student student) {
+        studentDao.save(student);
+    }
 }
