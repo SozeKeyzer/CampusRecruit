@@ -82,26 +82,20 @@ module.exports={
     postStudentLogin: async (req, res) => {
         const id = req.body.username;
         const password = req.body.password;
-          res.redirect('/studentDashboard');
         console.log(id);
       
-        // try {
-        //   const response = await axios.get(`http://localhost:9090/student/${id}`);
-        //   const data = response.data;
-        //   console.log(data);
-        
-
-        //   console.log(data.email);
-        //   // Render the 'studentLogin' view with the fetched data
-        //   res.redirect('/studentDashboard');
-        // } catch (error) {
-        //   console.error(error);
-        // }
+        try {
+          const response = await axios.get(`http://localhost:9090/student/${id}`);
+          const data = response.data;
+          if(password==data.password){
+            res.redirect('/studentDashboard');
+          }
+          
+        } catch (error) {
+          console.error(error);
+        }
       },
     postStudentRegister:(req,res)=>{
-
-        console.log('inside');
-        console.log(req.body.lastName);
 
         const student = {
             firstName: req.body.firstName,
@@ -122,6 +116,6 @@ module.exports={
             .catch(error => {
               console.error('Error adding student:', error);
             });
-        // res.render('studentRegister');
+        res.redirect('/studentRegister');
     }
 };

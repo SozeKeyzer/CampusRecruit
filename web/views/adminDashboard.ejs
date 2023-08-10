@@ -172,12 +172,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>Mohit</td>
-									<td>Sharma</a></td>
-									<td><a href="#">200244</a> </td>
-									<td>mohit@gmail.com</td>
-                                    <td>4626588770</td>
+								<% for(let i=0;i<data.length;i++){ %>
+									<tr>
+									<td><%= data[i].firstName %></td>
+									<td><%= data[i].lastName %></td>
+									<td><a href="#"><%= data[i].studentId %></a> </td>
+									<td><%= data[i].email %></td>
+                                    <td><%= data[i].contact %></td>
 									<td class="text-center">
 										<div class="d-inline-flex">
 											<div class="dropdown">
@@ -186,7 +187,7 @@
 												</a>
 
 												<div class="dropdown-menu dropdown-menu-end">
-													<a href="#" class="dropdown-item">
+													<a href="#" onclick="validateProfile(<%= data[i].studentId %>)" class="dropdown-item">
 														<i class="ph-file-pdf me-2"></i>
 														Validate Profile
 													</a>
@@ -198,88 +199,8 @@
 											</div>
 										</div>
 									</td>
-								</tr> 
-                                <tr>
-									<td>Ujjwal</td>
-									<td>Raturi</a></td>
-									<td><a href="#">200262</a></td>
-									<td>ujjwal@gmail.com</td>
-                                    <td>3565167785</td>
-									<td class="text-center">
-										<div class="d-inline-flex">
-											<div class="dropdown">
-												<a href="#" class="text-body" data-bs-toggle="dropdown">
-													<i class="ph-list"></i>
-												</a>
-
-												<div class="dropdown-menu dropdown-menu-end">
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-pdf me-2"></i>
-														Validate Profile
-													</a>
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-xls me-2"></i>
-														Show full profile
-													</a>
-												</div>
-											</div>
-										</div>
-									</td>
-								</tr> 
-                                <tr>
-									<td>Gaurav</td>
-									<td>Pharasi</a></td>
-									<td><a href="#">200229</a></td>
-									<td>gaurav@gmail.com</td>
-                                    <td>812534370</td>
-									<td class="text-center">
-										<div class="d-inline-flex">
-											<div class="dropdown">
-												<a href="#" class="text-body" data-bs-toggle="dropdown">
-													<i class="ph-list"></i>
-												</a>
-
-												<div class="dropdown-menu dropdown-menu-end">
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-pdf me-2"></i>
-														Validate Profile
-													</a>
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-xls me-2"></i>
-														Show full profile
-													</a>
-												</div>
-											</div>
-										</div>
-									</td>
-								</tr>
-                                <tr>
-									<td>Raj</td>
-									<td>Seraw</a></td>
-									<td><a href="#">200248</a></td>
-									<td>raj@gmail.com</td>
-                                    <td>9326513470</td>
-									<td class="text-center">
-										<div class="d-inline-flex">
-											<div class="dropdown">
-												<a href="#" class="text-body" data-bs-toggle="dropdown">
-													<i class="ph-list"></i>
-												</a>
-
-												<div class="dropdown-menu dropdown-menu-end">
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-pdf me-2"></i>
-														Validate Profile
-													</a>
-													<a href="#" class="dropdown-item">
-														<i class="ph-file-xls me-2"></i>
-														Show full profile
-													</a>
-												</div>
-											</div>
-										</div>
-									</td>
-								</tr>
+								</tr>  
+								<%}%>	  
 							</tbody>
 						</table>
 					</div>
@@ -291,8 +212,7 @@
 				<!-- Footer -->
 				<div class="navbar navbar-sm navbar-footer border-top">
 					<div class="container-fluid justify-content-center">
-						<span>Campus Recruit &copy; 2023</span>
-
+						<span>Campus Recruit &copy; 2023 </span>
 					</div>
 				</div>
 				<!-- /footer -->
@@ -376,3 +296,25 @@
 
 </body>
 </html>
+
+<script>
+	var selected = <%-JSON.stringify(data)%>;
+	console.log(selected);
+</script>
+<script>
+    function validateProfile(studentId) {
+      fetch(`/validateProfile?studentId=${studentId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+		window.location.href = '/adminDashboard';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  </script>

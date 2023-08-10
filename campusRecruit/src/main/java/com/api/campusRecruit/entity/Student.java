@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "StudentData")
-public class Student {
+public class Student extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -18,6 +18,16 @@ public class Student {
     String currentYear;
     String currentSem;
     String password;
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    boolean status;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public Student() {
 
