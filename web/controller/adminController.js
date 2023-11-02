@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const pass_gen = require('../util/generator');
 const logs = require('../util/logs'); //(messageType,messageLevel,Message)
+const imgUrl=require('../util/imageSrc');
 
 // 1: '[LOG]',
 // 2: '[ERROR]',
@@ -25,8 +26,16 @@ module.exports = {
         }
 
     },
-    getAdminJobPosting: (req, res) => {
-        res.render('adminJobPosting');
+    getAdminJobPosting: async (req, res) => {
+        try{
+            const response=await axios.get('http://localhost:9090/jobPosting');
+            const data=response.data;
+            console.log(data);
+            res.render('adminJobPosting',{data});
+        }
+        catch(error){
+            console.lof(error);
+        }
     },
     validateProfile: async (req, res) => {
         const studentId = req.query.studentId;
@@ -76,6 +85,20 @@ module.exports = {
         } catch (error) {
             console.error('Error updating student details:', error.message);
             throw error;
+        }
+    },
+    getJobPostingForm:(req,res)=>{
+        res.render('');
+    },
+    postJob:async (req,res)=>{
+        try{
+            const data=req.body;
+        const com=data.company;
+        data.imageUrl=imgUrl[com];
+        await axios.post('http://localhost:9090/postJob',data);
+        }
+        catch(error){
+            console.log(error);
         }
     }
 };

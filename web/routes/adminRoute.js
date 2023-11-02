@@ -6,5 +6,6 @@ router.get('/adminLogin',adminController.getAdminLogin);
 router.get('/adminDashboard',adminController.getAdminDashboard);
 router.get('/adminJobPosting',adminController.getAdminJobPosting);
 router.post('/validateProfile',adminController.validateProfile);
+router.post('/postJob',adminController.postJob);
 
 module.exports=router;

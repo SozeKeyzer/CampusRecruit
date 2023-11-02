@@ -69,8 +69,16 @@ module.exports={
     getStudentDashboard:(req,res)=>{
         res.render('studentDashboard');
     },
-    getStudentJobPosting:(req,res)=>{
-        res.render('studentJobPosting');
+    getStudentJobPosting:async (req,res)=>{
+      try{
+        const response=await axios.get('http://localhost:9090/jobPosting');
+        const data=response.data;
+        res.render('studentJobPosting',{data});
+      }
+      catch(error){
+        console.log(error);
+      }
+        
     },
     getStudentProfile:async (req,res)=>{
         // const response = await axios.get(`http://localhost:9090/student/200244`);
@@ -90,26 +98,12 @@ module.exports={
           if(password==data.password){
             res.redirect('/studentDashboard');
           }
-          
         } catch (error) {
           console.error(error);
         }
       },
     postStudentRegister:(req,res)=>{
-
-        const student = {
-            firstName: req.body.firstName,
-            lastName:req.body.lastName,
-            email:req.body.email,
-            contact:req.body.contact,
-            studentId:req.body.studentId,
-            course:req.body.course,
-            currentYear:req.body.currentYear,
-            currentSem:req.body.currentSem,
-            branch:req.body.branch,
-          };
-          
-          axios.post('http://localhost:9090/student', student)
+          axios.post('http://localhost:9090/student', req.body)
             .then(response => {
               console.log('Student added successfully');
             })
