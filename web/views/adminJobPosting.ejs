@@ -44,6 +44,15 @@
 
 	<script src="html/layout_1/full/assets/js/app.js"></script>
 	<script src="assets/demo/pages/datatables_basic.js"></script>
+
+	<link href="assets/fonts/inter/inter.css" rel="stylesheet" type="text/css">
+	<link href="assets/icons/phosphor/styles.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/ltr/all.min.css" id="stylesheet" rel="stylesheet" type="text/css">
+	<script src="assets/demo/pages/components_modals.js"></script>
+	<!-- /global stylesheets -->
+
+
+
 </head>
 
 <body>
@@ -154,6 +163,8 @@
 						</div>
 
 						<table class="table datatable-basic">
+							<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modal_default">Add Job Posting</button>
+					
 							<thead>
 								<tr>
 									<th>Company</th>
@@ -222,6 +233,7 @@
 								</tr>
 								
 							</tbody>
+							
 						</table>
 					</div>
 					
@@ -246,8 +258,130 @@
 
 	</div>
 	<!-- /page content -->
+	<div id="modal_default" class="modal fade" tabindex="-1">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">New Job Posting</h5>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
 
+				<form action="/postJob" method="POST">
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-4">
+									<label>jobTitle<span class="text-danger">*</span></label>
+									<input type="text" placeholder="jobTitle" class="form-control jobTitle" required name="jobTitle" id="jobTitle">
+								</div>
+								<div class="col-sm-4">
+									<label>jobType<span class="text-danger">*</span></label>
+									<select name="jobType" id="jobType" class="form-control jobType">
+										<option value="Full Time">Full Time</option>
+										<option value="Remote">Remote</option>
+										<option value="Internship">Internship</option>
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<label>jobLocation<span class="text-danger">*</span></label>
+									<input type="text" placeholder="jobLocation" class="form-control jobLocation" required name="jobLocation" id="jobLocation">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<label>workPlaceType<span class="text-danger">*</span></label>
+									<input type="text" placeholder="workplaceType" class="form-control workplaceType" required name="workplaceType" id="workplaceType">
+								</div>
+								<div class="col-sm-4">
+									<label>company<span class="text-danger">*</span></label>
+									<select name="company" id="company" class="form-control company">
+										<option value="tcs">TCS</option>
+										<option value="infosys">infosys</option>
+										<option value="wipro">wipro</option>
+										<option value="google">google</option>
+										<option value="amazon">amazon</option>
+										<option value="microsoft">microsoft</option>
+										<option value="adobe">adobe</option>
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<label>description<span class="text-danger">*</span></label>
+									<input type="text" placeholder="description" class="form-control description"  name="description" id="description">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<label>requiredCgpa<span class="text-danger">*</span></label>
+									<input type="text" placeholder="requiredCgpa" class="form-control requiredCgpa"  name="requiredCgpa" id="requiredCgpa">
+								</div>
+								<div class="col-sm-4">
+									<label>requiredSkill<span class="text-danger">*</span></label>
+									<select name="requiredSkill" id="requiredSkill" class="form-control requiredSkill">
+										<option value="dsa">dsa</option>
+										<option value="react">react</option>
+										<option value="node">node</option>
+										<option value="java">java</option>
+										<option value="python">python</option>
+										<option value="ML">ML</option>
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<label>lastDate<span class="text-danger">*</span></label>
+									<input type="date" placeholder="lastDate" class="form-control lastDate" name="lastDate" id="lastDate">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<label>batch<span class="text-danger">*</span></label>
+									<input type="text" placeholder="batch" class="form-control batch" name="batch" id="batch">
+								</div>
+								<div class="col-sm-4">
+									<label>qualification<span class="text-danger">*</span></label>
+									<select name="qualification" id="qualification" class="form-control qualification">
+										<option value="btech">btech</option>
+										<option value="mtech">mtech</option>
+										<option value="mca">mca</option>
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<label>year<span class="text-danger">*</span></label>
+									<select name="year" id="year" class="form-control year">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+									</select>
+								</div>
+							<div class="row">
+								<div class="col-sm-4">
+									<label>role<span class="text-danger">*</span></label>
+									<select name="role" id="role" class="form-control role">
+										<option value="SDE">SDE</option>
+										<option value="frontend developer">frontend developer</option>
+										<option value="backend developer">backend developer</option>
+										<option value="tester">tester</option>
+									</select>
+								</div>
+								<div class="col-sm-4">
+									<label>salary<span class="text-danger">*</span></label>
+									<input type="number" placeholder="salary" class="form-control salary" name="salary" id="salary">
+								</div>
+								<div class="col-sm-4">
+									<label>companyWebsite<span class="text-danger">*</span></label>
+									<input type="text" placeholder="companyWebsite" class="form-control companyWebsite" name="companyWebsite" id="companyWebsite">
+								</div>
+							</div>
+						</div>
+						
+					</div>
 
+					<div class="modal-footer">
+						<button type="submit" class="btn  bg-teal-400">Submit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 
 	<!-- Demo config -->
