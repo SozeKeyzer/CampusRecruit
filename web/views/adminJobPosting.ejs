@@ -177,61 +177,17 @@
 								</tr>
 							</thead>
 							<tbody>
+								<% for(var i=0; i<data.length; i++) {%>
 								<tr>
-									<td>Amazon</td>
-									<td>7 CGPA</td>
-									<td>Web Development</td>
-									<td>22 Jun 2023</td>
-									<td>Java</td>
+									<td><%=data[i].company%></td>
+									<td><%=data[i].requiredCgpa%></td>
+									<td><%=data[i].jobType%></td>
+									<td><%=data[i].lastDate%></td>
+									<td><%=data[i].requiredSkill%></td>
 									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
 									
 								</tr>
-								<tr>
-									<td>Google</td>
-									<td>7 CGPA</td>
-									<td>Software Development</td>
-									<td>3 Oct 2023</td>
-									<td>Node</td>
-									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
-									
-								</tr>
-								<tr>
-									<td>TCS</td>
-									<td>6 CGPA</td>
-									<td>AI Engineer</td>
-									<td>19 Apr 2023</td>
-									<td>DSA</td>
-									<td><span class="badge bg-danger bg-opacity-10 text-danger">Suspended</span></td>
-									
-								</tr>
-								<tr>
-									<td>Adobe</td>
-									<td>9 CGPA</td>
-									<td>Software Development</td>
-									<td>13 Dec 2023</td>
-									<td>DSA</td>
-									<td><span class="badge bg-info bg-opacity-10 text-info">Pending</span></td>
-									
-								</tr>
-								<tr>
-									<td>Infosys</td>
-									<td>6 CGPA</td>
-									<td>Web Development</td>
-									<td>30 Dec 2023</td>
-									<td>React</td>
-									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
-									
-								</tr>
-								<tr>
-									<td>Netflix</td>
-									<td>8 CGPA</td>
-									<td>Information Security Analyst</td>
-									<td>17 Oct 1987</td>
-									<td>BlockChain</td>
-									<td><span class="badge bg-info bg-opacity-10 text-info">Pending</span></td>
-									
-								</tr>
-								
+								<%}%>
 							</tbody>
 							
 						</table>
@@ -271,11 +227,11 @@
 						<div class="form-group">
 							<div class="row">
 								<div class="col-sm-4">
-									<label>jobTitle<span class="text-danger">*</span></label>
+									<label>Job Title<span class="text-danger">*</span></label>
 									<input type="text" placeholder="jobTitle" class="form-control jobTitle" required name="jobTitle" id="jobTitle">
 								</div>
 								<div class="col-sm-4">
-									<label>jobType<span class="text-danger">*</span></label>
+									<label>Job Type<span class="text-danger">*</span></label>
 									<select name="jobType" id="jobType" class="form-control jobType">
 										<option value="Full Time">Full Time</option>
 										<option value="Remote">Remote</option>
@@ -283,39 +239,39 @@
 									</select>
 								</div>
 								<div class="col-sm-4">
-									<label>jobLocation<span class="text-danger">*</span></label>
+									<label>Job Location<span class="text-danger">*</span></label>
 									<input type="text" placeholder="jobLocation" class="form-control jobLocation" required name="jobLocation" id="jobLocation">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-4">
-									<label>workPlaceType<span class="text-danger">*</span></label>
+									<label>Workplace Type<span class="text-danger">*</span></label>
 									<input type="text" placeholder="workplaceType" class="form-control workplaceType" required name="workplaceType" id="workplaceType">
 								</div>
 								<div class="col-sm-4">
-									<label>company<span class="text-danger">*</span></label>
+									<label>Company<span class="text-danger">*</span></label>
 									<select name="company" id="company" class="form-control company">
 										<option value="tcs">TCS</option>
-										<option value="infosys">infosys</option>
-										<option value="wipro">wipro</option>
-										<option value="google">google</option>
-										<option value="amazon">amazon</option>
-										<option value="microsoft">microsoft</option>
-										<option value="adobe">adobe</option>
+										<option value="infosys">Infosys</option>
+										<option value="wipro">Wipro</option>
+										<option value="google">Google</option>
+										<option value="amazon">Amazon</option>
+										<option value="microsoft">Microsoft</option>
+										<option value="adobe">Adobe</option>
 									</select>
 								</div>
 								<div class="col-sm-4">
-									<label>description<span class="text-danger">*</span></label>
+									<label>Description<span class="text-danger">*</span></label>
 									<input type="text" placeholder="description" class="form-control description"  name="description" id="description">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-4">
-									<label>requiredCgpa<span class="text-danger">*</span></label>
+									<label>Required CGPA<span class="text-danger">*</span></label>
 									<input type="text" placeholder="requiredCgpa" class="form-control requiredCgpa"  name="requiredCgpa" id="requiredCgpa">
 								</div>
 								<div class="col-sm-4">
-									<label>requiredSkill<span class="text-danger">*</span></label>
+									<label>Required Skill<span class="text-danger">*</span></label>
 									<select name="requiredSkill" id="requiredSkill" class="form-control requiredSkill">
 										<option value="dsa">dsa</option>
 										<option value="react">react</option>
@@ -326,17 +282,17 @@
 									</select>
 								</div>
 								<div class="col-sm-4">
-									<label>lastDate<span class="text-danger">*</span></label>
+									<label>Last Date<span class="text-danger">*</span></label>
 									<input type="date" placeholder="lastDate" class="form-control lastDate" name="lastDate" id="lastDate">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-4">
-									<label>batch<span class="text-danger">*</span></label>
+									<label>Batch<span class="text-danger">*</span></label>
 									<input type="text" placeholder="batch" class="form-control batch" name="batch" id="batch">
 								</div>
 								<div class="col-sm-4">
-									<label>qualification<span class="text-danger">*</span></label>
+									<label>Qualification<span class="text-danger">*</span></label>
 									<select name="qualification" id="qualification" class="form-control qualification">
 										<option value="btech">btech</option>
 										<option value="mtech">mtech</option>
@@ -344,7 +300,7 @@
 									</select>
 								</div>
 								<div class="col-sm-4">
-									<label>year<span class="text-danger">*</span></label>
+									<label>Year<span class="text-danger">*</span></label>
 									<select name="year" id="year" class="form-control year">
 										<option value="1">1</option>
 										<option value="2">2</option>
@@ -354,7 +310,7 @@
 								</div>
 							<div class="row">
 								<div class="col-sm-4">
-									<label>role<span class="text-danger">*</span></label>
+									<label>Role<span class="text-danger">*</span></label>
 									<select name="role" id="role" class="form-control role">
 										<option value="SDE">SDE</option>
 										<option value="frontend developer">frontend developer</option>
@@ -363,11 +319,11 @@
 									</select>
 								</div>
 								<div class="col-sm-4">
-									<label>salary<span class="text-danger">*</span></label>
+									<label>Salary<span class="text-danger">*</span></label>
 									<input type="number" placeholder="salary" class="form-control salary" name="salary" id="salary">
 								</div>
 								<div class="col-sm-4">
-									<label>companyWebsite<span class="text-danger">*</span></label>
+									<label>Company Website<span class="text-danger">*</span></label>
 									<input type="text" placeholder="companyWebsite" class="form-control companyWebsite" name="companyWebsite" id="companyWebsite">
 								</div>
 							</div>

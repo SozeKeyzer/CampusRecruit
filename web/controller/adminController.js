@@ -30,7 +30,6 @@ module.exports = {
         try{
             const response=await axios.get('http://localhost:9090/jobPosting');
             const data=response.data;
-            console.log(data);
             res.render('adminJobPosting',{data});
         }
         catch(error){
@@ -87,15 +86,13 @@ module.exports = {
             throw error;
         }
     },
-    getJobPostingForm:(req,res)=>{
-        res.render('');
-    },
     postJob:async (req,res)=>{
         try{
             const data=req.body;
         const com=data.company;
         data.imageUrl=imgUrl[com];
         await axios.post('http://localhost:9090/postJob',data);
+        res.redirect('/adminJobPosting');
         }
         catch(error){
             console.log(error);
