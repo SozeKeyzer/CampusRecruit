@@ -1,6 +1,6 @@
-const express=require('express');
+import express from 'express';
 const router=express.Router();
-const studentController=require('../controller/studentController');
+import * as studentController from '../controller/studentController.js';
 
 router.get('/studentRegister',studentController.getStudentRegister);
 router.get('/studentLogin',studentController.getStudentLogin);
@@ -9,5 +9,7 @@ router.get('/studentJobPosting',studentController.getStudentJobPosting);
 router.get('/studentProfile',studentController.getStudentProfile);
 router.post('/studentRegister',studentController.postStudentRegister);
 router.post('/studentLogin',studentController.postStudentLogin);
+router.post('/jobApplication/:id',studentController.postJobApplication);
+router.get('/jobApplication/:id',studentController.getJobApplication);
 
-module.exports=router;
+export default router;
