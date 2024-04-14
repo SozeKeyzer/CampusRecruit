@@ -1,47 +1,132 @@
-import spacy
-import pickle
-import random
-import os
+from tika import parser
+import unicodedata
+import re
+file = r'C:/Users/mohit/Desktop/files/CampusRecruit/web/resume-model/resume.pdf'
+file_data = parser.from_file(file)
+text = file_data['content']
+print(text)
 
-train_data = pickle.load(open('C:/Users/mohit/Desktop/files/CampusRecruit/web/resume-model/train_data.pkl', 'rb'))
+# Remove tabs and newlines from the text
+text = re.sub(r'\s+', ' ', text)
 
+# Normalize unicode characters and remove escape sequences
+text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8')
 
-nlp = spacy.blank('en')
+parsed_content = {}
 
-def train_model(train_data):
-    if 'ner' not in nlp.pipe_names:
-        nlp.add_pipe('ner')
-    
-    ner = nlp.get_pipe('ner')  # Get the NER component after adding it
-    
-    for _, annotation in train_data:
-        for ent in annotation['entities']:
-            ner.add_label(ent[2])
-            
-    
-    other_pipes = [pipe for pipe in nlp.pipe_names if pipe != 'ner']
-    with nlp.disable_pipes(*other_pipes):  # only train NER
-        optimizer = nlp.begin_training()
-        for itn in range(10):
-            print("Starting iteration " + str(itn))
-            random.shuffle(train_data)
-            losses = {}
-            index = 0
-            for text, annotations in train_data:
-                try:
-                    nlp.update(
-                        [text],  # batch of texts
-                        [annotations],  # batch of annotations
-                        drop=0.2,  # dropout - make it harder to memorize data
-                        sgd=optimizer,  # callable to update weights
-                        losses=losses)
-                except Exception as e:
-                    pass
-                
-            print(losses)
+#E-MAIL
 
-    
+def get_email_addresses(string):
+    r = re.compile(r'[\w\.-]+@[\w\.-]+')
+    return r.findall(string)
 
-train_model(train_data)
-nlp.to_disk('C:/Users/mohit/Desktop/files/CampusRecruit/web/resume-model/nlp_model')
+email = get_email_addresses(text)
+print(email)
+parsed_content['E-mail'] = email
+
+#PHONE NUMBER
+import re
+def get_phone_numbers(string):
+    r = re.compile(r'(\d{3}[-\.\s]??\d{3}[-\.\s]??\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]??\d{4}|\d{3}[-\.\s]??\d{4})')
+    phone_numbers = r.findall(string)
+    return [re.sub(r'\D', '', num) for num in phone_numbers]
+
+phone_number= get_phone_numbers(text)
+if len(phone_number) <= 10:
+    print(phone_number)
+    parsed_content['Phone number'] = phone_number
+
+# import spacy
+# nlp = spacy.load('en_core_web_sm')
+# from spacy.matcher import Matcher
+# matcher = Matcher(nlp.vocab)
+
+# def extract_name(text):
+#    nlp_text = nlp(text)
+  
+#    # First name and Last name are always Proper Nouns
+#    pattern = [{'POS': 'PROPN'}, {'POS': 'PROPN'}]
+  
+#    matcher.add('NAME', [pattern], on_match = None)
+  
+#    matches = matcher(nlp_text)
+  
+#    for match_id, start, end in matches:
+#        span = nlp_text[start:end]
+#        return span.text
+
+# name = extract_name(text)
+# print(name)
+# parsed_content['Name'] =  name
+
+Keywords = ["education",
+            "summary",
+            "accomplishments",
+            "executive profile",
+            "professional profile",
+            "personal profile",
+            "work background",
+            "academic profile",
+            "other activities",
+            "qualifications",
+            "experience",
+            "interests",
+            "skills",
+            "achievements",
+            "publications",
+            "publication",
+            "certifications",
+            "workshops",
+            "projects",
+            "internships",
+            "trainings",
+            "hobbies",
+            "overview",
+            "objective",
+            "position of responsibility",
+            "jobs"
+           ]
+
+text = text.replace("\n"," ")
+text = text.replace("[^a-zA-Z0-9]", " ");  
+re.sub('\W+','', text)
+text = text.lower()
+# print(text)
+
+content = {}
+indices = []
+keys = []
+for key in Keywords:
+    try:
+        content[key] = text[text.index(key) + len(key):]
+        indices.append(text.index(key))
+        keys.append(key)
+    except:
+        pass
+
+#Sorting the indices
+zipped_lists = zip(indices, keys)
+sorted_pairs = sorted(zipped_lists)
+sorted_pairs
+
+tuples = zip(*sorted_pairs)
+indices, keys = [ list(tuple) for tuple in  tuples]
+keys
+
+#Keeping the required content and removing the redundant part
+content = []
+for idx in range(len(indices)):
+    if idx != len(indices)-1:
+        content.append(text[indices[idx]: indices[idx+1]])
+    else:
+        content.append(text[indices[idx]: ])
+
+for i in range(len(indices)):
+    parsed_content[keys[i]] = content[i]   
+
+print(parsed_content)
+
+import json
+with open("Parsed_Resume.json", "w") as outfile:
+    json.dump(parsed_content, outfile)
 

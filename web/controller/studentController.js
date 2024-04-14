@@ -1,6 +1,7 @@
-const axios = require('axios');
-
-module.exports={
+import { redirect } from "react-router-dom";
+import appliedJobsModel from "../model/appliedJobsModel.js";
+import jobPostingModel from "../model/jobPostingModel.js";
+import studentModel from "../model/studentModel.js";
     // postStudentLogin:async (req, res) => {
     //     const email = req.body.email;
     //     const password = req.body.password;
@@ -60,56 +61,72 @@ module.exports={
     //     req.session.destroy();
     //     res.redirect('/');
     // }
-    getStudentLogin:(req,res)=>{
+   export const getStudentLogin=(req,res)=>{
         res.render('studentLogin');
-    },
-    getStudentRegister:(req,res)=>{
+    }
+   export const getStudentRegister=(req,res)=>{
         res.render('studentRegister');
-    },
-    getStudentDashboard:(req,res)=>{
+    }
+    export const getStudentDashboard=(req,res)=>{
         res.render('studentDashboard');
-    },
-    getStudentJobPosting:async (req,res)=>{
+    }
+    export const getStudentJobPosting=async (req,res)=>{
       try{
-        const response=await axios.get('http://localhost:9090/jobPosting');
-        const data=response.data;
+        const data = await jobPostingModel.find({});
         res.render('studentJobPosting',{data});
       }
       catch(error){
         console.log(error);
       }
         
-    },
-    getStudentProfile:async (req,res)=>{
+    }
+    export const getStudentProfile=async (req,res)=>{
         // const response = await axios.get(`http://localhost:9090/student/200244`);
         //   const data = response.data;
         res.render('studentProfile',{
             // data:data
         });
-    },
-    postStudentLogin: async (req, res) => {
-        const id = req.body.username;
-        const password = req.body.password;
-        console.log(id);
-      
-        try {
-          const response = await axios.get(`http://localhost:9090/student/${id}`);
-          const data = response.data;
-          if(password==data.password){
-            res.redirect('/studentDashboard');
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      },
-    postStudentRegister:(req,res)=>{
-          axios.post('http://localhost:9090/student', req.body)
-            .then(response => {
-              console.log('Student added successfully');
-            })
-            .catch(error => {
-              console.error('Error adding student:', error);
-            });
-        res.redirect('/studentRegister');
     }
-};
+    export const postStudentLogin= async (req, res) => {
+        // const id = req.body.username;
+        // const password = req.body.password;
+        // console.log(id);
+      
+        // try {
+        //   const response = await axios.get(`http://localhost:9090/student/${id}`);
+        //   const data = response.data;
+        //   if(password==data.password){
+        //     res.redirect('/studentDashboard');
+        //   }
+        // } catch (error) {
+        //   console.error(error);
+        // }
+        res.redirect('/studentDashboard');
+      }
+      export const postStudentRegister=async (req,res)=>{
+          try{
+            await studentModel.create(req.body);
+            res.render('postRegister');
+          }
+          catch(error){
+            console.log(error);
+          }
+    }
+    export const postJobApplication =async (req,res)=>{
+      try{
+        const job = await jobPostingModel.findOne({
+          jobId:req.params.id
+        });
+        req.body.jobId = job._id;
+        await appliedJobsModel.create(req.body);
+        res.redirect('/studentJobPosting');
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+    export const getJobApplication = async (req,res) =>{
+      res.render('studentJobApplication',{
+        id:req.params.id
+      });
+    }

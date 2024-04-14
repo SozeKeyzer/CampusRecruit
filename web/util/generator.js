@@ -1,11 +1,11 @@
-const generator = require('generate-password');
+import generator from 'generate-password';
 
-module.exports={
-     genPass:()=>{
+const genPas = ()=>{
       const gen_pass=generator.generate({
         length: 10,
         numbers: true
       });
       return gen_pass;
-    }
 }
+
+export default genPas;

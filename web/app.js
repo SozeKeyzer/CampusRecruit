@@ -1,18 +1,21 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const path = require('path');
+import express from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+import connect from './config/db.js';
+import { fileURLToPath } from 'url';
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 
-const studentRoute=require('./routes/studentRoute');
-const adminRoute=require('./routes/adminRoute');
+import studentRoute from './routes/studentRoute.js'
+import adminRoute from './routes/adminRoute.js'
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname,'public')));
-app.use(session({secret: 'my secret',resave: false, saveUninitialized: false}));
 
 app.set("view engine","ejs");
 app.set("views","./views");
@@ -20,14 +23,14 @@ app.set("views","./views");
 app.use(studentRoute);
 app.use(adminRoute);
 
-app.use('/',(req,res,next)=>{
-    res.render('home.ejs',{
-        data:req.session.isLoggedIn
-    });
+app.use('/',(req,res)=>{
+    res.render('home.ejs');
 });
 
-app.listen(2000,()=>{
-    console.log('running on port 2000');
+connect().then(()=>{
+    app.listen(process.env.PORT,()=>{
+    console.log(`running on port ${process.env.PORT}`);
+});
 });
 
 

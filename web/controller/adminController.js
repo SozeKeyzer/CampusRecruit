@@ -1,49 +1,47 @@
-const axios = require('axios');
-const nodemailer = require('nodemailer');
-const bcrypt = require('bcryptjs');
-const pass_gen = require('../util/generator');
-const logs = require('../util/logs'); //(messageType,messageLevel,Message)
-const imgUrl=require('../util/imageSrc');
+import nodemailer from 'nodemailer'
+import bcrypt from 'bcrypt'
+import pass_gen from '../util/generator.js'
+import imgSrc from '../util/imageSrc.js'
+import studentModel from '../model/studentModel.js'
+import { uniqueCode } from '../util/uniqueCode.js'
+import jobPostingModel from '../model/jobPostingModel.js'
+// import { uniqueCode } from '../util/uniqueCode.js'
 
-// 1: '[LOG]',
-// 2: '[ERROR]',
-// 3: '[FATAL_ERROR]'
-
-module.exports = {
-    getAdminLogin: (req, res) => {
+export const getAdminLogin= (req, res) => {
         res.render('adminLogin');
-    },
-    getAdminDashboard: async (req, res) => {
+    }
+    export const getAdminDashboard= async (req, res) => {
         try {
-            const response = await axios.get('http://localhost:9090/students');
-            const students = response.data;
-            const studentsWithStatusZero = students.filter(student => student.status === false);
+            const data = await studentModel.find({
+                verified:false
+            });
             res.render('adminDashboard', {
-                data: studentsWithStatusZero
+                data: data
             });
         } catch (error) {
-            logs.logMessages(logs.direction[2], 0, error.message)
+            console.log(error);
         }
 
-    },
-    getAdminJobPosting: async (req, res) => {
+    }
+    export const getAdminJobPosting= async (req, res) => {
         try{
-            const response=await axios.get('http://localhost:9090/jobPosting');
-            const data=response.data;
-            res.render('adminJobPosting',{data});
+            const data = await jobPostingModel.find({});
+            res.render('adminJobPosting',{
+                data:data
+            });
         }
         catch(error){
-            console.lof(error);
+            console.log(error);
         }
-    },
-    validateProfile: async (req, res) => {
+    }
+    export const validateProfile= async (req, res) => {
         const studentId = req.query.studentId;
         try {
             const student = await axios.get(`http://localhost:9090/student/${studentId}`); //get the student with the id
             const body = student.data; //extract the data from response body object
             body.status = 1; //set its verfied status to 1
             try {
-                const pass = pass_gen.genPass();   //generate the password here and update the student object and send the password via mail 
+                const pass = pass_gen();   //generate the password here and update the student object and send the password via mail 
                 console.log(pass);
                 const saltRounds = 12;
                 const hashedPassword = await bcrypt.hash(pass, saltRounds);
@@ -85,17 +83,17 @@ module.exports = {
             console.error('Error updating student details:', error.message);
             throw error;
         }
-    },
-    postJob:async (req,res)=>{
+    }
+    export const postJob=async (req,res)=>{
         try{
-            const data=req.body;
-        const com=data.company;
-        data.imageUrl=imgUrl[com];
-        await axios.post('http://localhost:9090/postJob',data);
-        res.redirect('/adminJobPosting');
+            const data = req.body;
+            const com = data.company;
+            data.imageUrl = imgSrc[com];
+            data.jobId = uniqueCode();
+            await jobPostingModel.create(data);
+            res.redirect('/adminJobPosting');
         }
         catch(error){
             console.log(error);
         }
     }
-};
