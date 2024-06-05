@@ -84,17 +84,8 @@
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-end">
-						<a href="#" class="dropdown-item">
-							<i class="ph-user-circle me-2"></i>
-							My profile
-						</a>
-						<a href="#" class="dropdown-item">
-							<i class="ph-envelope-open me-2"></i>
-							My inbox
-							<span class="badge bg-primary rounded-pill ms-auto">26</span>
-						</a>
 						<div class="dropdown-divider"></div>
-						<a href="/studentLogin" class="dropdown-item">
+						<a href="/studentLogout" class="dropdown-item">
 							<i class="ph-sign-out me-2"></i>
 							Logout
 						</a>
@@ -171,18 +162,18 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="#">
+                            <form action="/studentProfile" method="post">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">First Name</label>
-                                            <input type="text" value="John" class="form-control">
+                                            <input type="text" name="firstName" value=<%=data.firstName%> class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Last name</label>
-                                            <input type="text" value="Doe" class="form-control">
+                                            <input type="text" name="lastName" value=<%=data.lastName%> class="form-control" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -191,13 +182,13 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Student ID</label>
-                                            <input type="text" value="200244" class="form-control">
+                                            <input type="text" name="studentId" value=<%=data.studentId%> class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Email</label>
-                                            <input type="text" value="john@gmail.com" class="form-control">
+                                            <input type="text" name="email" value=<%=data.email%> class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -206,19 +197,19 @@
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label class="form-label">Contact</label>
-                                            <input type="text" value="+91736383947" class="form-control">
+                                            <input type="text" name="contact" value=<%=data.contact%> class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label class="form-label">Course</label>
-                                            <input type="text" value="B.Tech" class="form-control">
+                                            <input type="text" name="course" value=<%=data.course%> class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label class="form-label">Branch</label>
-                                            <input type="text" value="CSE" class="form-control">
+                                            <input type="text" name="branch" value=<%=data.branch%> class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -227,31 +218,14 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Current Year</label>
-                                            <input type="text" value="3" class="form-control">
+                                            <input type="text" name="currentYear" value=<%=data.currentYear%> class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Current Semester</label>
-                                            <input type="text" value="6" class="form-control">
+                                            <input type="text" name="currentSem" value=<%=data.currentSem%> class="form-control">
 
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">LinkedIn</label>
-                                            <input type="text" value="" class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Upload resume</label>
-                                            <input type="file" class="form-control">
-                                            <div class="form-text text-muted">Accepted formats: pdf, doc. Max file size 2Mb</div>
                                         </div>
                                     </div>
                                 </div>
@@ -272,19 +246,19 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="#">
+                            <form action="/changePassword" method="post">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="mb-3">
-                                            <label class="form-label">Username</label>
-                                            <input type="text" value="John" readonly class="form-control">
+                                            <label class="form-label">Student Id:</label>
+                                            <input type="text" name="studentId" value=<%=data.studentId%> readonly class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Current password</label>
-                                            <input type="" value="" placeholder="Enter current password" readonly class="form-control">
+                                            <input type="" name="currentPassword" value="" placeholder="Enter current password" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -293,14 +267,14 @@
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">New password</label>
-                                            <input type="password" placeholder="Enter new password" class="form-control">
+                                            <input type="password" name="newPassword" placeholder="Enter new password" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6">
                                         <div class="mb-3">
                                             <label class="form-label">Repeat password</label>
-                                            <input type="password" placeholder="Repeat new password" class="form-control">
+                                            <input type="password" name="confirmNewPassword" placeholder="Repeat new password" class="form-control">
                                         </div>
                                     </div>
                                 </div>

@@ -85,17 +85,8 @@
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-end">
-						<a href="#" class="dropdown-item">
-							<i class="ph-user-circle me-2"></i>
-							My profile
-						</a>
-						<a href="#" class="dropdown-item">
-							<i class="ph-envelope-open me-2"></i>
-							My inbox
-							<span class="badge bg-primary rounded-pill ms-auto">26</span>
-						</a>
 						<div class="dropdown-divider"></div>
-						<a href="/studentLogin" class="dropdown-item">
+						<a href="/studentLogout" class="dropdown-item">
 							<i class="ph-sign-out me-2"></i>
 							Logout
 						</a>
@@ -223,95 +214,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="#" class="me-3">
-													<img src="assets/images/brands/amazon.svg" class="rounded-circle" width="32" height="32" alt="">
-												</a>
-
-												<div>
-													<a href="#" class="text-body fw-semibold">Amazon Inc.</a>
-													<div class="text-muted fs-sm">May 22nd</div>
+									<% for(let i=0; i<data.length; i++) {%>	
+										<tr>
+											<td>
+												<div class="d-flex align-items-center">
+													<a href="#" class="me-3">
+														<img src=<%=data[0].jobId.imageUrl%> class="rounded-circle" width="32" height="32" alt="">
+													</a>
+	
+													<div>
+														<a href="#" class="text-body fw-semibold"><%=data[0].jobId.company%></a>
+														<div class="text-muted fs-sm"><%=data[0].appliedDate%></div>
+													</div>
 												</div>
-											</div>
-										</td>
-										<td>June 13th</td>
-										<td><img src="assets/images/brands/amazon.svg" class="rounded-sm me-1" width="20" alt="">Backend Developer</td>
-										<td><span class="badge bg-indigo bg-opacity-10 text-indigo">Pending</span></td>
-										
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="#" class="me-3">
-													<img src="assets/images/brands/facebook.svg" class="rounded-circle" width="32" height="32" alt="">
-												</a>
-
-												<div>
-													<a href="#" class="text-body fw-semibold">Facebook</a>
-													<div class="text-muted fs-sm">May 22nd</div>
-												</div>
-											</div>
-										</td>
-										<td>June 14th</td>
-										<td><img src="assets/images/brands/facebook.svg" class="me-1" width="20" alt="">SDE</td>
-										<td><span class="badge bg-indigo bg-opacity-10 text-indigo">Pending</span></td>
-										
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="#" class="me-3">
-													<img src="assets/images/brands/adobe.svg" class="rounded-circle" width="32" height="32" alt="">
-												</a>
-
-												<div>
-													<a href="#" class="text-body fw-semibold">Adobe</a>
-													<div class="text-muted fs-sm">May 23rd</div>
-												</div>
-											</div>
-										</td>
-										<td>June 15th</td>
-										<td><img src="assets/images/brands/adobe.svg" class="rounded-sm me-1" width="20" alt="">Junior Developer</td>
-										<td><span class="badge bg-indigo bg-opacity-10 text-indigo">Pending</span></td>
-										
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="#" class="me-3">
-													<img src="assets/images/brands/apple.svg" class="rounded-circle" width="32" height="32" alt="">
-												</a>
-
-												<div>
-													<a href="#" class="text-body fw-semibold">Apple Inc.</a>
-													<div class="text-muted fs-sm">May 23rd</div>
-												</div>
-											</div>
-										</td>
-										<td>June 16th</td>
-										<td><img src="assets/images/brands/apple.svg" class="rounded-sm me-1" width="20" alt="">React Internship</td>
-										<td><span class="badge bg-indigo bg-opacity-10 text-indigo">Pending</span></td>
-										
-									</tr>
-									<tr>
-										<td>
-											<div class="d-flex align-items-center">
-												<a href="#" class="me-3">
-													<img src="assets/images/brands/tesla.svg" class="rounded-circle" width="32" height="32" alt="">
-												</a>
-
-												<div>
-													<a href="#" class="text-body fw-semibold">Tesla Inc.</a>
-													<div class="text-muted fs-sm">May 26th</div>
-												</div>
-											</div>
-										</td>
-										<td>June 21st</td>
-										<td><img src="assets/images/brands/dpd.svg" class="me-1" width="20" alt="">Blockchain Developer</td>
-										<td><span class="badge bg-indigo bg-opacity-10 text-indigo">Pending</span></td>
-									</tr>
+											</td>
+											<td>June 13th</td>
+											<td><img src=<%=data[0].jobId.imageUrl%> class="rounded-sm me-1" width="20" alt=""><%=data[0].jobId.role%></td>
+											<td><span class="badge bg-indigo bg-opacity-10 text-indigo">Pending</span></td>
+										</tr>
+										<% } %>
 								</tbody>
 							</table>
 						</div>

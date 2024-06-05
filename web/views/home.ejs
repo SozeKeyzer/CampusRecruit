@@ -1,4 +1,83 @@
-<a href="/studentLogin">Student Login</a>
-<br>
-<br>
-<a href="/adminLogin">Admin Login</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Recruit</title>
+    <link rel="stylesheet" href="stylesHome.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h1><span class="headSpan">CA</span>MPUS <span class="headSpan">RE</span>CRUIT</h1>
+            <div class="carousel">
+                <div class="quote"></div>
+            </div>
+        </div>
+        <div class="right">
+            <h2>Welcome to GBPIET</h2>
+            <div class="button-container">
+                <a href="/studentLogin" class="btn">Student Login</a>
+                <a href="/adminLogin" class="btn">Admin Login</a>
+            </div>
+            <a href="/aboutUs" class="about-link">About Us</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quotes = [
+                "Seamless placements, personalized for your journey.",
+                "Bask in the glow of achievement with our distinctive touch.",
+                "Experience the pinnacle of success with our support.",
+                "Find tranquility in placements, designed for success.",
+                "Discover ease and comfort in every placement endeavor."
+            ];
+            
+            let currentIndex = 0;
+            const quoteElement = document.querySelector('.quote');
+        
+            // Function to shuffle an array
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+        
+            // Shuffle the quotes array
+            const shuffledQuotes = shuffleArray([...quotes]);
+        
+            function typeWriter(text, i, fnCallback) {
+                if (i < text.length) {
+                    quoteElement.innerHTML = text.substring(0, i + 1);
+                    setTimeout(() => {
+                        typeWriter(text, i + 1, fnCallback);
+                    }, 50);
+                } else if (typeof fnCallback === 'function') {
+                    setTimeout(fnCallback, 700);
+                }
+            }
+        
+            function startTextAnimation(i) {
+                if (i < shuffledQuotes.length) {
+                    typeWriter(shuffledQuotes[i], 0, () => {
+                        startTextAnimation(i + 1);
+                    });
+                } else {
+                    // Reshuffle the quotes array when all quotes have been displayed
+                    const reshuffledQuotes = shuffleArray([...quotes]);
+                    setTimeout(() => {
+                        startTextAnimation(0);
+                    }, 700);
+                }
+            }
+        
+            startTextAnimation(currentIndex);
+        });
+        
+        
+    </script>
+</body>
+</html>

@@ -100,17 +100,8 @@
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-end">
-						<a href="#" class="dropdown-item">
-							<i class="ph-user-circle me-2"></i>
-							My profile
-						</a>
-						<a href="#" class="dropdown-item">
-							<i class="ph-envelope-open me-2"></i>
-							My inbox
-							<span class="badge bg-primary rounded-pill ms-auto">26</span>
-						</a>
 						<div class="dropdown-divider"></div>
-						<a href="/studentLogin" class="dropdown-item">
+						<a href="/studentLogout" class="dropdown-item">
 							<i class="ph-sign-out me-2"></i>
 							Logout
 						</a>
@@ -156,71 +147,44 @@
 						<table class="table datatable-basic">
 							<thead>
 								<tr>
-									<th>Company</th>
-									<th>Eligiblity</th>
+									<th>Company Name</th>
+									<th>Logo</th>
+									<th>CGPA Required</th>
+									<th>Batch Required</th>
 									<th>Job-Type</th>
 									<th>Last Date</th>
 									<th>Skills</th>
 									<th>Status</th>
+									<th class="text-center" style="width: 20px;"><i class="ph-arrow-circle-down"></i></th>
 									
 								</tr>
 							</thead>
 							<tbody>
+								<% for(let i=0; i<data.length; i++) {%>						 
 								<tr>
-									<td>Amazon</td>
-									<td>7 CGPA</td>
-									<td>Web Development</td>
-									<td>22 Jun 2023</td>
-									<td>Java</td>
+									<td><%= data[i].company %></td>
+									<td><img src=<%= data[i].imageUrl %> class="me-1" width="20" alt=""></td>
+									<td><%= data[i].requiredCgpa %></td>
+									<td><%= data[i].qualification %></td>
+									<td><%= data[i].jobType %></td>
+									<td><%= data[i].lastDate %></td>
+									<td><%= data[i].requiredSkill %></td>
 									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
-									
+									<td class="text-center">
+										<div class="dropdown">
+											<button type="button" class="btn btn-outline-light btn-icon btn-sm text-body border-transparent rounded-pill" data-bs-toggle="dropdown">
+												<i class="ph-dots-three-vertical"></i>
+											</button>
+											<div class="dropdown-menu dropdown-menu-end">
+												<a href="/jobApplication?id=<%= data[i].jobId %>" class="dropdown-item">
+													<i class="ph-receipt me-2"></i>
+													Apply
+												</a>
+											</div>
+										</div>
+									</td>	
 								</tr>
-								<tr>
-									<td>Google</td>
-									<td>7 CGPA</td>
-									<td>Software Development</td>
-									<td>3 Oct 2023</td>
-									<td>Node</td>
-									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
-									
-								</tr>
-								<tr>
-									<td>TCS</td>
-									<td>6 CGPA</td>
-									<td>AI Engineer</td>
-									<td>19 Apr 2023</td>
-									<td>DSA</td>
-									<td><span class="badge bg-danger bg-opacity-10 text-danger">Suspended</span></td>
-									
-								</tr>
-								<tr>
-									<td>Adobe</td>
-									<td>9 CGPA</td>
-									<td>Software Development</td>
-									<td>13 Dec 2023</td>
-									<td>DSA</td>
-									<td><span class="badge bg-info bg-opacity-10 text-info">Pending</span></td>
-									
-								</tr>
-								<tr>
-									<td>Infosys</td>
-									<td>6 CGPA</td>
-									<td>Web Development</td>
-									<td>30 Dec 2023</td>
-									<td>React</td>
-									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
-									
-								</tr>
-								<tr>
-									<td>Netflix</td>
-									<td>8 CGPA</td>
-									<td>Information Security Analyst</td>
-									<td>17 Oct 1987</td>
-									<td>BlockChain</td>
-									<td><span class="badge bg-info bg-opacity-10 text-info">Pending</span></td>
-									
-								</tr>
-								
+								<% } %>
 							</tbody>
 						</table>
 					</div>
@@ -317,3 +281,8 @@
 
 </body>
 </html>
+
+<!-- <script>
+    var row =<%-JSON.stringify(data)%>
+    console.log(row);
+</script> -->
