@@ -1,6 +1,6 @@
 {
-    "E-mail": [],
-    "Phone number": [],
+    "E-mail": ["harsh@gmail.com"],
+    "Phone number": ["24234234"],
     "education": "education iit kanpur mtech, cse | cpi: 9.14 2018 - 2020 g.b.pant engg. college btech, cse | 79.3% 2014 - 2018 modern school, rishikesh isc (ssc) | 93.75% 2014 modern school, rishikesh icse (hsc) | 93.6 % 2012 ",
     "skills": "skills programming languages: java c c++ python c# kotlin dart technologies: uwpappdevelopment  android appdevelopment  rest apis  azure opencv  pytorch  latex research explainable anomaly detection jul, 2019 - jun, 2020 mtech thesis | dr. arnab bhattacharya devised a way to explain anomalies detected by autoencoders. we used anchors to explain the anomalies.  explanations were rule-based and intuitive. ",
     "achievements": "achievements/awards academic excellence award 2018 from iit kanpur. air 111 in gatecs 2018.  securedrank 139 in round 1 and rank 44 in round 2 of codevita 2017 organized by tata consultancy services among 99,473 participants. ",

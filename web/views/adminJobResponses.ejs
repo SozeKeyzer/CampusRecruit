@@ -80,12 +80,11 @@
 					</li>
 
 					<li class="nav-item nav-item-dropdown">
-						<a href="/adminJobPosting" class="navbar-nav-link rounded active" >
+						<a href="/adminJobPosting" class="navbar-nav-link rounded " >
 							<i class="ph-rows me-2"></i>
 							Job Posting
 						</a>
 					</li>
-
 				</ul>
 			</div>
 
@@ -129,7 +128,7 @@
 					<div class="page-header-content container d-lg-flex">
 						<div class="d-flex">
 							<h4 class="page-title mb-0">
-								Admin - <span class="fw-normal">Job Posting</span>
+								Admin - <span class="fw-normal">Job Responses</span>
 							</h4>
 						</div>
 
@@ -143,58 +142,39 @@
 				<div class="content container pt-0">
                     <div class="card">
 						<div class="card-header">
-							<h5 class="mb-0">Basic datatable</h5>
+							<h5 class="mb-0">Company Name*</h5>
 						</div>
 
 						<table class="table datatable-basic">
-							<button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modal_default">Add Job Posting</button>
 					
 							<thead>
 								<tr>
-									<th>Company Name</th>
-									<th>Logo</th>
-									<th>Eligiblity</th>
-									<th>Job-Type</th>
-									<th>Last Date</th>
-									<th>Skills</th>
-									<th>Status</th>
-									<th>Action</th>
+									<th>Student Name</th>
+									<th>Year</th>
+									<th>Branch</th>
+									<th>Date</th>
+									<th>Phone Number</th>
+									<th>Email</th>
+									<th>CGPA</th>
 									
 								</tr>
 							</thead>
 							<tbody>
-								<% for(let i=0;i<data.length;i++){ %>
 								<tr>
-									<td><%=data[i].company%></td>
-									<td><img src=<%=data[i].imageUrl%> class="me-1" width="20" alt=""></td>
-									<td><%=data[i].requiredCgpa%></td>
-									<td><%=data[i].jobType%></td>
-									<td><%=data[i].lastDate%></td>
-									<td><%=data[i].requiredSkill%></td>
-									<td><span class="badge bg-secondary bg-opacity-10 text-secondary">Active</span></td>
-									<td class="text-center">
-										<div class="dropdown">
-											<button type="button" class="btn btn-outline-light btn-icon btn-sm text-body border-transparent rounded-pill" data-bs-toggle="dropdown">
-												<i class="ph-dots-three-vertical"></i>
-											</button>
-											<div class="dropdown-menu dropdown-menu-end">
-												<a href="/jobResponses?id=<%=data[i].jobId%>" class="dropdown-item">
-													<i class="ph-chart-bar me-2"></i>
-													Check Progress
-												</a>
-												<a href="/downloadResponses?id=<%=data[i].jobId%>" class="dropdown-item">
-													<i class="ph-file-pdf me-2"></i>
-													Download Respones
-												</a>
-												<button class="dropdown-item" onclick="deleteJob('<%=data[i].jobId%>')"><i class="ph-file-pdf me-2"></i> Close Job</button>
-											</div>
-										</div>
-									</td>							
+									<td>Ujjwal Raturi</td>
+									<td>4th</td>
+									<td>CSE</td>
+									<td>22 Jun 2023</td>
+									<td>8533859704</td>
+									<td>ujjwalraturi248001@gmail.com</td>
+									<td>7</td>
 								</tr>
-								<%}%>
 							</tbody>
 							
 						</table>
+                        <button type="button" class="btn btn-danger flex-column py-1 mx-1">
+                            <i class="ph-download-simple ph-2x mb-1"></i>
+                        </button>
 					</div>
 					
 				</div>
@@ -255,13 +235,13 @@
 								<div class="col-sm-4">
 									<label>Company<span class="text-danger">*</span></label>
 									<select name="company" id="company" class="form-control company">
-										<option value="Tcs">TCS</option>
-										<option value="Infosys">Infosys</option>
-										<option value="Wipro">Wipro</option>
-										<option value="Google">Google</option>
-										<option value="Amazon">Amazon</option>
-										<option value="Microsoft">Microsoft</option>
-										<option value="Adobe">Adobe</option>
+										<option value="tcs">TCS</option>
+										<option value="infosys">Infosys</option>
+										<option value="wipro">Wipro</option>
+										<option value="google">Google</option>
+										<option value="amazon">Amazon</option>
+										<option value="microsoft">Microsoft</option>
+										<option value="adobe">Adobe</option>
 									</select>
 								</div>
 								<div class="col-sm-4">
@@ -411,22 +391,3 @@
 
 </body>
 </html>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-	async function deleteJob(id){
-					$.ajax({
-			type: "POST",
-			url: "http://localhost:4000/deleteJob",
-			data: {
-				id: id
-			},
-			success: function(response) {
-				//console.log("Success:", response);
-			},
-			error: function(error) {
-				//console.log("Error:", error);
-			}
-			});
-	}
-</script>
-	

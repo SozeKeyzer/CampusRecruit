@@ -1,7 +1,11 @@
 from tika import parser
 import unicodedata
 import re
-file = r'C:/Users/mohit/Desktop/files/CampusRecruit/web/resume-model/resume.pdf'
+import sys
+
+sys.stdout.reconfigure(encoding='utf-8')
+
+file = r'C:/Users/mohit/Desktop/files/CampusRecruit/web/resume-model/resume/resume.pdf'
 file_data = parser.from_file(file)
 text = file_data['content']
 print(text)
@@ -22,7 +26,7 @@ def get_email_addresses(string):
 
 email = get_email_addresses(text)
 print(email)
-parsed_content['E-mail'] = email
+parsed_content['email'] = email
 
 #PHONE NUMBER
 import re
@@ -34,7 +38,7 @@ def get_phone_numbers(string):
 phone_number= get_phone_numbers(text)
 if len(phone_number) <= 10:
     print(phone_number)
-    parsed_content['Phone number'] = phone_number
+    parsed_content['phone'] = phone_number
 
 # import spacy
 # nlp = spacy.load('en_core_web_sm')

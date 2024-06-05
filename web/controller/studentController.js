@@ -2,73 +2,21 @@ import { redirect } from "react-router-dom";
 import appliedJobsModel from "../model/appliedJobsModel.js";
 import jobPostingModel from "../model/jobPostingModel.js";
 import studentModel from "../model/studentModel.js";
-    // postStudentLogin:async (req, res) => {
-    //     const email = req.body.email;
-    //     const password = req.body.password;
-    //     const data=await axios.get('http://localhost:9090/data');
-            
-    //     hrModel.findOne({
-    //             where: {
-    //                 emailId: email
-    //             }
-    //         }).then(user => {
-    //             if (!user) {
-    //                 console.log("User not found");
-    //                 res.render('hrRegister', {
-    //                     invalidDetails: false,
-    //                     userNotFound: true,
-    //                     userNotValidated: false
-    //                 });
-    //             } else {
-    //                 if (user.password == null) {
-    //                     res.render('hrRegister', {
-    //                         invalidDetails: false,
-    //                         userNotFound: false,
-    //                         userNotValidated: true
-    //                     });
-    //                 }
-    //                 const checkPass = bcrypt.compareSync(password, user.password.replaceAll('"', ''));
-    //                 console.log(`Password Match ${checkPass}`);
-
-    //                 if (checkPass == false) {
-    //                     res.render('hrRegister', {
-    //                         invalidDetails: true,
-    //                         userNotFound: false,
-    //                         userNotValidated: false
-    //                     });
-    //                 } else {
-    //                     req.session.isLoggedIn = true;
-    //                     req.session.userId = user.id;
-    //                     req.session.username = user.userName;
-    //                     req.session.email = user.emailId;
-    //                     req.session.user = user;
-    //                     console.log(`User Id is ${req.session.userId}`);
-
-    //                     req.session.save((err) => {
-    //                         console.log(err);
-    //                         res.redirect('/hrDashboard');
-    //                     });
-
-    //                 }
-    //             }
-    //         })
-    //         .catch(
-    //             err => console.log(err)
-    //         )
-    // },
-    // getLogout: (req, res) => {
-    //     req.session.isLoggedIn = false;
-    //     req.session.destroy();
-    //     res.redirect('/');
-    // }
+import bcrypt from 'bcrypt';
+import fs from "fs";
+import { exec } from "child_process";
+   
    export const getStudentLogin=(req,res)=>{
         res.render('studentLogin');
     }
    export const getStudentRegister=(req,res)=>{
         res.render('studentRegister');
-    }
-    export const getStudentDashboard=(req,res)=>{
-        res.render('studentDashboard');
+   }
+    //TODO : needs to find this only for particular studentid
+    export const getStudentDashboard=async (req,res)=>{
+      const data = await appliedJobsModel.find({studentId : req.session.user._id})
+      .populate('studentId').populate('jobId').exec();
+      res.render('studentDashboard',{data});
     }
     export const getStudentJobPosting=async (req,res)=>{
       try{
@@ -81,27 +29,44 @@ import studentModel from "../model/studentModel.js";
         
     }
     export const getStudentProfile=async (req,res)=>{
-        // const response = await axios.get(`http://localhost:9090/student/200244`);
-        //   const data = response.data;
+        const data = await studentModel.findOne({studentId : req.session.user.studentId});
         res.render('studentProfile',{
-            // data:data
+            data:data
         });
     }
+    export const postStudentProfile = async (req,res)=>{
+        const data = await studentModel.findOne({studentId : req.body.studentId});
+        data.email = req.body.email;
+        data.contact = req.body.contact;
+        data.course = req.body.course;
+        data.currentYear = req.body.currentYear;
+        data.currentSem = req.body.currentSem;
+        data.branch = req.body.branch;
+        await data.save();
+        res.redirect('/studentProfile');
+    }
     export const postStudentLogin= async (req, res) => {
-        // const id = req.body.username;
-        // const password = req.body.password;
-        // console.log(id);
-      
-        // try {
-        //   const response = await axios.get(`http://localhost:9090/student/${id}`);
-        //   const data = response.data;
-        //   if(password==data.password){
-        //     res.redirect('/studentDashboard');
-        //   }
-        // } catch (error) {
-        //   console.error(error);
-        // }
-        res.redirect('/studentDashboard');
+        const username = req.body.username;
+        const password = req.body.password;
+        const student = await studentModel.findOne({studentId : username});
+        if(student){
+            const match = await bcrypt.compare(password,student.password);
+            if(match){
+                req.session.isLoggedIn = true;
+                req.session.user = student;
+                req.session.isAdmin = false;
+                req.session.save((err) => {
+                  res.redirect('/studentDashboard');
+              });
+            }
+            else{
+              res.redirect('/error');
+            }
+        }
+        else{
+          console.log('here');
+          res.redirect('/error');
+        }
       }
       export const postStudentRegister=async (req,res)=>{
           try{
@@ -115,9 +80,10 @@ import studentModel from "../model/studentModel.js";
     export const postJobApplication =async (req,res)=>{
       try{
         const job = await jobPostingModel.findOne({
-          jobId:req.params.id
+          jobId:req.body.jobId
         });
         req.body.jobId = job._id;
+        req.body.studentId = req.session.user._id;
         await appliedJobsModel.create(req.body);
         res.redirect('/studentJobPosting');
       }
@@ -126,7 +92,55 @@ import studentModel from "../model/studentModel.js";
       }
     }
     export const getJobApplication = async (req,res) =>{
-      res.render('studentJobApplication',{
-        id:req.params.id
-      });
+      const name = req.session.user.firstName + ' ' + req.session.user.lastName;
+      const data = {
+        id : req.query.id,
+        result : null,
+        name : name
+      };
+      res.render('studentJobApplication',{data});
     }
+    export const uploadResume = async (req,res)=>{
+      exec('cd resume-model && python model.py', (error, stdout, stderr) => {
+        if (error) {
+          console.error(`Error: ${error.message}`);
+          return;
+        }
+        if (stderr) {
+          console.error(`Stderr: ${stderr}`);
+          return;
+        }
+        const name = req.session.user.firstName + ' ' + req.session.user.lastName;
+        const data = {
+          id : req.body.jobId,
+          name : name
+        };
+        let rawdata = fs.readFileSync('C:/Users/mohit/Desktop/files/CampusRecruit/web/resume-model/Parsed_Resume.json');
+        let result = JSON.parse(rawdata);
+        data.result = result;
+        res.render('studentJobApplication',{data});
+      });
+    } 
+    export const changePassword = async (req,res) => {
+      const data = await studentModel.findOne({studentId : req.body.studentId});
+      const match = await bcrypt.compare(req.body.currentPassword,data.password);
+      if(match){
+        if(req.body.newPassword == req.body.confirmNewPassword){
+          const hashedPassword = await bcrypt.hash(req.body.newPassword,12);
+          data.password = hashedPassword;
+          await data.save();
+          res.redirect('/studentProfile');
+        }
+        else{
+          res.redirect('/error');
+        }
+      }
+      else{
+        res.redirect('/error');
+      }
+    }
+    export const logOut = async (req,res) => {
+      req.session.isLoggedIn = false;
+      req.session.destroy();
+      res.redirect('/');
+  }

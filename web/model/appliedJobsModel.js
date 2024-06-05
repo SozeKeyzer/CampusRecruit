@@ -5,6 +5,10 @@ const appliedJobsSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'job_posting',
     },
+    studentId:{
+        type: Schema.Types.ObjectId,
+        ref: 'student'
+    },
     name:{
         type:String
     },
@@ -24,6 +28,15 @@ const appliedJobsSchema = new Schema({
         type:String
     },
     projects:{
+        type:String
+    },
+    achievements:{
+        type:String
+    },
+    interests:{
+        type:String
+    },
+    appliedDate : {
         type:String
     }
 });
