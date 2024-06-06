@@ -3,94 +3,97 @@ import bcrypt from 'bcrypt'
 import pass_gen from '../util/generator.js'
 import imgSrc from '../util/imageSrc.js'
 import studentModel from '../model/studentModel.js'
-import { uniqueCode } from '../util/uniqueCode.js'
+import {
+    uniqueCode
+} from '../util/uniqueCode.js'
 import jobPostingModel from '../model/jobPostingModel.js'
 import appliedJobsModel from '../model/appliedJobsModel.js'
 import ExcelJS from 'exceljs';
 // import { uniqueCode } from '../util/uniqueCode.js'
 
-export const getAdminLogin= (req, res) => {
-        res.render('adminLogin');
+export const getAdminLogin = (req, res) => {
+    res.render('adminLogin');
+}
+export const getAdminDashboard = async (req, res) => {
+    try {
+        const data = await studentModel.find({
+            verified: false
+        });
+        res.render('adminDashboard', {
+            data: data
+        });
+    } catch (error) {
+        console.log(error);
     }
-    export const getAdminDashboard= async (req, res) => {
-        try {
-            const data = await studentModel.find({
-                verified:false
-            });
-            res.render('adminDashboard', {
-                data: data
-            });
-        } catch (error) {
-            console.log(error);
-        }
 
+}
+export const getAdminJobPosting = async (req, res) => {
+    try {
+        const data = await jobPostingModel.find({});
+        res.render('adminJobPosting', {
+            data: data
+        });
+    } catch (error) {
+        console.log(error);
     }
-    export const getAdminJobPosting= async (req, res) => {
-        try{
-            const data = await jobPostingModel.find({});
-            res.render('adminJobPosting',{
-                data:data
-            });
-        }
-        catch(error){
-            console.log(error);
-        }
-    }
-    export const validateProfile= async (req, res) => {
+}
+export const validateProfile = async (req, res) => {
+    try {
+        const studentId = req.query.studentId;
+        console.log(studentId);
+        const student = await studentModel.findOne({
+            studentId: studentId
+        }); //get the student with the id
+        student.verified = true; 
         try {
-            const studentId = req.query.studentId;
-            console.log(studentId);
-            const student = await studentModel.findOne({studentId : studentId}); //get the student with the id
-            student.verified = true; //set its verfied status to 1
-            try {
-                const pass = pass_gen();   //generate the password here and update the student object and send the password via mail 
-                console.log(pass);
-                const saltRounds = 12;
-                const hashedPassword = await bcrypt.hash(pass, saltRounds);
-                console.log(hashedPassword);
-                student.password = hashedPassword;
-                const msg = {
-                    from: "tdemo651@gmail.com",
-                    to: student.email,
-                    subject: "Campus Recruit Profile Verified",
-                    text: "Welcome to the platform!! Your profile has been verified by the admin, Password-" + pass
-                };
-                nodemailer.createTransport({
-                        service: 'gmail',
-                        auth: {
-                            user: "tdemo651@gmail.com",
-                            pass: "tedihyjmypzstvwq"
-                        },
-                        port: 465,
-                        host: 'smtp.gmail.com'
-                    })
-                    .sendMail(msg, (err) => {
-                        if (err) {
-                            return console.log('error occur', err);
-                        } else {
-                            return console.log('email sent');
-                        }
-                    });
-                    await student.save();
-                    res.redirect('/adminDashboard');
-            } catch (error) {
-                console.error('Error hashing password:', error);
-                throw error;
-            }           
+            const pass = pass_gen(); 
+            console.log(pass);
+            const saltRounds = 12;
+            const hashedPassword = await bcrypt.hash(pass, saltRounds);
+            console.log(hashedPassword);
+            student.password = hashedPassword;
+            const msg = {
+                from: "tdemo651@gmail.com",
+                to: student.email,
+                subject: "Campus Recruit Profile Verified",
+                text: "Welcome to the platform!! Your profile has been verified by the admin, Password-" + pass
+            };
+            nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: "tdemo651@gmail.com",
+                        pass: "tedihyjmypzstvwq"
+                    },
+                    port: 465,
+                    host: 'smtp.gmail.com'
+                })
+                .sendMail(msg, (err) => {
+                    if (err) {
+                        return console.log('error occur', err);
+                    } else {
+                        return console.log('email sent');
+                    }
+                });
+            await student.save();
+            res.redirect('/adminDashboard');
         } catch (error) {
-            console.error('Error updating student details:', error.message);
+            console.error('Error hashing password:', error);
             throw error;
         }
+    } catch (error) {
+        console.error('Error updating student details:', error.message);
+        throw error;
     }
-    export const postJob=async (req,res)=>{
-        try{
-            const data = req.body;
-            const com = data.company;
-            data.imageUrl = imgSrc[com];
-            data.jobId = uniqueCode();
-            await jobPostingModel.create(data);
-            //html content
-            const htmlContent = `<!DOCTYPE html>
+}
+export const postJob = async (req, res) => {
+    try {
+        const data = req.body;
+        const com = data.company;
+        data.imageUrl = imgSrc[com];
+        data.jobId = uniqueCode();
+        await jobPostingModel.create(data);
+        //html content
+        const htmlContent = `<!DOCTYPE html>
                                     <html lang="en">
                                     <head>
                                     <meta charset="UTF-8">
@@ -137,103 +140,140 @@ export const getAdminLogin= (req, res) => {
                                     </body>
                                     </html>`;
 
-            //sending mail to students
-            const students = await studentModel.find({}, 'email');
-            const emails = students.map(student => student.email);
-            const msg = {
-                from: "tdemo651@gmail.com",
-                to: emails,
-                subject: "New Job Posted - Campus Recruit",
-                html: htmlContent
-            };
-            nodemailer.createTransport({
-                    service: 'gmail',
-                    auth: {
-                        user: "tdemo651@gmail.com",
-                        pass: "tedihyjmypzstvwq"
-                    },
-                    port: 465,
-                    host: 'smtp.gmail.com'
-                })
-                .sendMail(msg, (err) => {
-                    if (err) {
-                        return console.log('error occur', err);
-                    } else {
-                        return console.log('email sent');
-                    }
-                });
-            res.redirect('/adminJobPosting');
-        }
-        catch(error){
-            console.log(error);
-        }
-    }
-    export const getJobResponses = async (req,res)=>{
-        try{
-            res.render('adminJobResponses');
-        }
-        catch(error){
-            console.log(error);
-        }
-    }
-    export const postAdminLogin = (req,res)=>{
-        const username = req.body.username;
-        const password = req.body.password;
-        if(username == 'admin@gbpiet.com' && password == 'admin'){
-            req.session.isLoggedIn = true;
-            req.session.isAdmin = true;
-            req.session.save((err) => {
-                res.redirect('/adminDashboard');
+        //sending mail to students
+        const students = await studentModel.find({}, 'email');
+        const emails = students.map(student => student.email);
+        const msg = {
+            from: "tdemo651@gmail.com",
+            to: emails,
+            subject: "New Job Posted - Campus Recruit",
+            html: htmlContent
+        };
+        nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: "tdemo651@gmail.com",
+                    pass: "tedihyjmypzstvwq"
+                },
+                port: 465,
+                host: 'smtp.gmail.com'
+            })
+            .sendMail(msg, (err) => {
+                if (err) {
+                    return console.log('error occur', err);
+                } else {
+                    return console.log('email sent');
+                }
             });
-        }
-        else{
-            res.redirect('/error');
-        }
+        res.redirect('/adminJobPosting');
+    } catch (error) {
+        console.log(error);
     }
-    export const downloadResponses = async (req,res)=>{
+}
+export const getJobResponses = async (req, res) => {
+    try {
+        console.log();
         const jobId = req.query.id;
-        const job = await jobPostingModel.findOne({jobId: jobId});
-        const documents = await appliedJobsModel.find({jobId: job._id});
+        const job = await jobPostingModel.findOne({jobId : jobId });
+        const data = await appliedJobsModel.find({jobId : job._id}).
+        populate('studentId').populate('jobId').exec();
+        res.render('adminJobResponses',{
+            data 
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+export const postAdminLogin = (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    if (username == 'admin@gbpiet.com' && password == 'admin') {
+        req.session.isLoggedIn = true;
+        req.session.isAdmin = true;
+        req.session.save((err) => {
+            res.redirect('/adminDashboard');
+        });
+    } else {
+        res.redirect('/error');
+    }
+}
+export const downloadResponses = async (req, res) => {
+    const jobId = req.query.id;
+    const job = await jobPostingModel.findOne({
+        jobId: jobId
+    });
+    const documents = await appliedJobsModel.find({
+        jobId: job._id
+    });
 
-        if (documents.length === 0) {
-            res.redirect('/error');
+    if (documents.length === 0) {
+        res.redirect('/error');
+    }
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Sheet 1');
+
+    worksheet.columns = [{
+            header: 'S.No.',
+            key: 'no',
+            width: 20
+        },
+        {
+            header: 'Student Id',
+            key: 'id',
+            width: 20
+        },
+        {
+            header: 'Name',
+            key: 'name',
+            width: 20
+        },
+        {
+            header: 'Email',
+            key: 'email',
+            width: 20
+        },
+        {
+            header: 'Phone',
+            key: 'phone',
+            width: 20
         }
+    ];
 
-        const workbook = new ExcelJS.Workbook();
-        const worksheet = workbook.addWorksheet('Sheet 1');
+    let num = 1;
+    for (const doc of documents) {
+        const student = await studentModel.findOne({
+            _id: doc.studentId
+        });
+        worksheet.addRow({
+            no: num,
+            id: student.studentId,
+            name: doc.name,
+            email: doc.email,
+            phone: doc.phone
+        });
+        num++;
+    }
 
-        worksheet.columns = [
-            { header: 'S.No.', key: 'no', width: 20 },
-            { header: 'Student Id', key: 'id', width: 20 },
-            { header: 'Name', key: 'name', width: 20 },
-            { header: 'Email', key: 'email', width: 20},
-            { header: 'Phone', key: 'phone', width: 20}
-          ];
-
-          let num = 1;
-          for (const doc of documents) {
-              const student = await studentModel.findOne({ _id: doc.studentId });
-              worksheet.addRow({ no: num, id: student.studentId, name: doc.name, email: doc.email, phone: doc.phone});
-              num++;
-          }
-
-        res.setHeader(
+    res.setHeader(
         'Content-Type',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        );
-        res.setHeader('Content-Disposition', 'attachment; filename=documents.xlsx');
+    );
+    res.setHeader('Content-Disposition', 'attachment; filename=documents.xlsx');
 
-        await workbook.xlsx.write(res);
-        res.end();
-    }
-    export const deleteJob = async (req,res) => {
-        const jobId = req.body.id;
-        await jobPostingModel.deleteOne({jobId : jobId});
-        res.redirect('/adminJobPosting');
-    }
+    await workbook.xlsx.write(res);
+    res.end();
+}
+export const deleteJob = async (req, res) => {
+    const jobId = req.body.id;
+    await jobPostingModel.deleteOne({
+        jobId: jobId
+    });
+    res.redirect('/adminJobPosting');
+}
 
-    export const logOut = async (req,res) => {
-        req.session.isLoggedIn = false;
-        req.session.destroy();
-        res.redirect('/');
-    }
+export const logOut = async (req, res) => {
+    req.session.isLoggedIn = false;
+    req.session.destroy();
+    res.redirect('/');
+}
